@@ -70,7 +70,7 @@ function HeroBanner() {
       {HERO_SLIDES.map((slide, i) => (
         <div key={i} className={`hero-slide${i === active ? " active" : ""}`}>
           <img src={slide.img} alt={slide.city} width={1920} height={1080}
-            className="absolute inset-0 h-full w-full object-cover object-top" />
+            className="absolute inset-0 h-full w-full object-cover object-center" />
           <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-black/30 to-black/80" />
           <div className="absolute inset-0 bg-gradient-to-r from-black/60 via-transparent to-transparent" />
           <div className="grain absolute inset-0" />
