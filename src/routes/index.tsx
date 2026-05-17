@@ -1,10 +1,9 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { ArrowRight, ArrowUpRight, Play, Star, Flame, Timer } from "lucide-react";
-import { useEffect, useState } from "react";
+import { ArrowRight, ArrowUpRight, Play, Star, Flame, Timer, ChevronLeft, ChevronRight } from "lucide-react";
+import { useEffect, useState, useCallback } from "react";
 import { AnnouncementBar } from "@/components/site/AnnouncementBar";
 import { Header } from "@/components/site/Header";
 import { Footer } from "@/components/site/Footer";
-import heroMain from "@/assets/hero-main.jpg";
 import colGrad from "@/assets/col-graduation.jpg";
 import colFoodie from "@/assets/col-foodie.jpg";
 import colWC from "@/assets/col-worldcup.jpg";
@@ -14,18 +13,128 @@ import productTee from "@/assets/product-tee.jpg";
 import productCap from "@/assets/product-cap.jpg";
 import productJacket from "@/assets/product-jacket.jpg";
 import storyBg from "@/assets/story-bg.jpg";
+import heroBanner1 from "@/assets/hero-banner-1.png";
+import heroBanner2 from "@/assets/hero-banner-2.png";
+import heroBanner3 from "@/assets/hero-banner-3.png";
+import heroBanner4 from "@/assets/hero-banner-4.png";
+import heroBanner5 from "@/assets/hero-banner-5.png";
 
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
-      { title: "Sauce City — Rep The Culture" },
+      { title: "Sauce City - Rep The Culture" },
       { name: "description", content: "Premium streetwear merch where food, fashion and culture collide. Shop graduation, foodie, World Cup and streetwear drops." },
-      { property: "og:title", content: "Sauce City — Rep The Culture" },
+      { property: "og:title", content: "Sauce City - Rep The Culture" },
       { property: "og:description", content: "Premium streetwear for the next generation." },
     ],
   }),
   component: Home,
 });
+
+const HERO_SLIDES = [
+  { img: heroBanner1, city: "NEW YORK", tag: "ALL AGES WELCOME", label: "SLIDE 01" },
+  { img: heroBanner2, city: "LOS ANGELES", tag: "EVERY GENERATION", label: "SLIDE 02" },
+  { img: heroBanner3, city: "CHICAGO", tag: "YOUR CITY. YOUR STYLE.", label: "SLIDE 03" },
+  { img: heroBanner4, city: "ATLANTA", tag: "NATIONWIDE COLLECTION", label: "SLIDE 04" },
+  { img: heroBanner5, city: "HOUSTON", tag: "SOFT CITY COLLECTION", label: "SLIDE 05" },
+];
+
+function HeroBanner() {
+  const [active, setActive] = useState(0);
+  const [progress, setProgress] = useState(0);
+  const DURATION = 5000;
+
+  const next = useCallback(() => {
+    setActive((p) => (p + 1) % HERO_SLIDES.length);
+    setProgress(0);
+  }, []);
+
+  const prev = useCallback(() => {
+    setActive((p) => (p - 1 + HERO_SLIDES.length) % HERO_SLIDES.length);
+    setProgress(0);
+  }, []);
+
+  useEffect(() => {
+    const start = Date.now();
+    const interval = setInterval(() => {
+      const elapsed = Date.now() - start;
+      const pct = Math.min((elapsed % DURATION) / DURATION * 100, 100);
+      setProgress(pct);
+    }, 50);
+    const timer = setInterval(next, DURATION);
+    return () => { clearInterval(interval); clearInterval(timer); };
+  }, [active, next]);
+
+  return (
+    <section className="relative min-h-[100svh] overflow-hidden bg-[#0a0a0a]">
+      {HERO_SLIDES.map((slide, i) => (
+        <div key={i} className={`hero-slide${i === active ? " active" : ""}`}>
+          <img src={slide.img} alt={slide.city} width={1920} height={1080}
+            className="absolute inset-0 h-full w-full object-cover object-top" />
+          <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-black/30 to-black/80" />
+          <div className="absolute inset-0 bg-gradient-to-r from-black/60 via-transparent to-transparent" />
+          <div className="grain absolute inset-0" />
+        </div>
+      ))}
+
+      <div className="relative z-10 mx-auto max-w-[1500px] px-5 lg:px-10 pt-20 pb-16 min-h-[100svh] flex flex-col justify-between">
+        <div className="flex items-center justify-between text-xs font-display tracking-[0.3em] text-bone/70">
+          <span>SOFT CITY COLLECTION</span>
+          <span className="hidden md:inline">SHOT IN "” {HERO_SLIDES[active].city}</span>
+          <span>{HERO_SLIDES[active].label}</span>
+        </div>
+
+        <div className="max-w-5xl reveal-up">
+          <div className="flex items-center gap-3 text-bone/80 mb-6">
+            <span className="h-px w-10 bg-sauce-red" />
+            <span className="text-xs font-display tracking-[0.3em] text-bone">{HERO_SLIDES[active].tag}</span>
+          </div>
+          <h1 className="font-display text-[20vw] md:text-[14vw] lg:text-[12rem] leading-[0.85] text-bone">
+            REP THE
+            <br />
+            <span className="text-stroke-red">CUL</span><span className="text-sauce-red">TURE</span>
+          </h1>
+          <p className="mt-8 max-w-xl text-bone/80 text-base md:text-lg leading-relaxed">
+            For every city, every generation, every culture. Built for the young, the seasoned, and everyone in between.
+          </p>
+          <div className="flex flex-wrap gap-4 mt-10">
+            <Link to="/collections/streetwear" className="btn-sauce-light"><span>Shop Collection</span><ArrowRight className="h-4 w-4" /></Link>
+            <Link to="/collections/worldcup" className="btn-ghost-light"><Play className="h-3 w-3 fill-current" /><span>Explore Merch</span></Link>
+          </div>
+        </div>
+
+        <div className="flex items-end justify-between text-bone/80">
+          <div className="flex items-center gap-3">
+            <button onClick={prev} aria-label="Previous" className="h-10 w-10 rounded-full border border-bone/40 grid place-items-center hover:bg-bone/20 transition">
+              <ChevronLeft className="h-5 w-5 text-bone" />
+            </button>
+            <button onClick={next} aria-label="Next" className="h-10 w-10 rounded-full border border-bone/40 grid place-items-center hover:bg-bone/20 transition">
+              <ChevronRight className="h-5 w-5 text-bone" />
+            </button>
+            <div className="flex gap-2 ml-4">
+              {HERO_SLIDES.map((_, i) => (
+                <button key={i} onClick={() => { setActive(i); setProgress(0); }}
+                  className={`h-1 rounded-full transition-all duration-300 ${i === active ? "w-8 bg-sauce-red" : "w-4 bg-bone/40"}`} />
+              ))}
+            </div>
+          </div>
+          <div className="flex items-center gap-6 text-xs font-display tracking-[0.3em]">
+            <span className="hidden md:inline">ALL AGES</span>
+            <span className="hidden md:inline">/</span>
+            <span>50+ CITIES</span>
+            <span>/</span>
+            <span>SHIPPED NATIONWIDE</span>
+          </div>
+        </div>
+      </div>
+
+      {/* Progress bar */}
+      <div className="absolute bottom-0 left-0 right-0 h-0.5 bg-bone/20 z-20">
+        <div className="h-full bg-sauce-red transition-none" style={{ width: `${progress}%` }} />
+      </div>
+    </section>
+  );
+}
 
 function Countdown() {
   const target = new Date();
@@ -65,116 +174,71 @@ function Home() {
       <AnnouncementBar />
       <Header />
 
-      {/* HERO */}
-      <section className="relative min-h-[100svh] overflow-hidden">
-        <img src={heroMain} alt="Sauce City streetwear campaign" width={1920} height={1080}
-          className="absolute inset-0 h-full w-full object-cover" />
-        <div className="absolute inset-0 bg-gradient-to-b from-background/40 via-background/30 to-background" />
-        <div className="absolute inset-0 bg-gradient-to-r from-background/70 via-transparent to-background/40" />
-        <div className="grain absolute inset-0" />
+      {/* ROTATING HERO BANNER */}
+      <HeroBanner />
 
-        <div className="relative z-10 mx-auto max-w-[1500px] px-5 lg:px-10 pt-20 pb-16 min-h-[100svh] flex flex-col justify-between">
-          <div className="flex items-center justify-between text-xs font-display tracking-[0.3em] text-bone/70">
-            <span>VOL.04 — WINTER '26</span>
-            <span className="hidden md:inline">SHOT IN — DOWNTOWN LA</span>
-            <span>NO.{("0001")}</span>
-          </div>
-
-          <div className="max-w-5xl reveal-up">
-            <div className="flex items-center gap-3 text-bone/80 mb-6">
-              <span className="h-px w-10 bg-sauce-red" />
-              <span className="text-xs font-display tracking-[0.3em]">NEW DROP / LIVE NOW</span>
-            </div>
-            <h1 className="font-display text-[20vw] md:text-[14vw] lg:text-[12rem] leading-[0.85] text-bone">
-              REP THE
-              <br />
-              <span className="text-stroke-red">CUL</span><span className="text-sauce-red">TURE</span>
-            </h1>
-            <p className="mt-8 max-w-xl text-bone/80 text-base md:text-lg leading-relaxed">
-              Where food, fashion and culture collide. Built in the streets, made for the next generation.
-            </p>
-            <div className="flex flex-wrap gap-4 mt-10">
-              <Link to="/collections/streetwear" className="btn-sauce"><span>Shop Collection</span><ArrowRight className="h-4 w-4" /></Link>
-              <Link to="/collections/worldcup" className="btn-ghost"><Play className="h-3 w-3 fill-current" /><span>Explore Merch</span></Link>
-            </div>
-          </div>
-
-          <div className="flex items-end justify-between text-bone/80">
-            <div className="hidden md:flex flex-col gap-1 text-xs font-display tracking-[0.3em]">
-              <span>SCROLL</span>
-              <span className="h-12 w-px bg-bone/40 ml-3" />
-            </div>
-            <div className="flex items-center gap-6 text-xs font-display tracking-[0.3em]">
-              <span className="hidden md:inline">04 COLLECTIONS</span>
-              <span className="hidden md:inline">/</span>
-              <span>120+ DROPS</span>
-              <span>/</span>
-              <span>SHIPPED WORLDWIDE</span>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* MARQUEE STRIP */}
-      <section className="bg-foreground text-background py-6 overflow-hidden border-y border-foreground">
+      {/* MARQUEE STRIP "” multicolor */}
+      <section className="bg-sauce-red text-bone py-5 overflow-hidden border-y border-sauce-red">
         <div className="marquee">
           <div className="marquee-track">
-            {["SAUCE CITY", "EST. 2024", "REP THE CULTURE", "WORLDWIDE", "GRADUATION '26", "FOODIE EDITION", "WORLD CUP DROP", "STREETWEAR"].map((t, i) => (
-              <span key={i} className="font-display text-5xl md:text-7xl tracking-[0.06em] whitespace-nowrap inline-flex items-center gap-8">
-                {t} <Flame className="h-8 w-8 text-sauce-red" />
+            {["SOFT CITY COLLECTION", "EST. 2024", "REP THE CULTURE", "ALL AGES", "ALL CITIES", "NATIONWIDE", "YOUR STYLE", "EVERYBODY"].map((t, i) => (
+              <span key={i} className="font-display text-4xl md:text-6xl tracking-[0.06em] whitespace-nowrap inline-flex items-center gap-8">
+                {t} <Flame className="h-6 w-6 text-bone/60" />
               </span>
             ))}
           </div>
           <div className="marquee-track" aria-hidden>
-            {["SAUCE CITY", "EST. 2024", "REP THE CULTURE", "WORLDWIDE", "GRADUATION '26", "FOODIE EDITION", "WORLD CUP DROP", "STREETWEAR"].map((t, i) => (
-              <span key={i} className="font-display text-5xl md:text-7xl tracking-[0.06em] whitespace-nowrap inline-flex items-center gap-8">
-                {t} <Flame className="h-8 w-8 text-sauce-red" />
+            {["SOFT CITY COLLECTION", "EST. 2024", "REP THE CULTURE", "ALL AGES", "ALL CITIES", "NATIONWIDE", "YOUR STYLE", "EVERYBODY"].map((t, i) => (
+              <span key={i} className="font-display text-4xl md:text-6xl tracking-[0.06em] whitespace-nowrap inline-flex items-center gap-8">
+                {t} <Flame className="h-6 w-6 text-bone/60" />
               </span>
             ))}
           </div>
         </div>
       </section>
 
-      {/* VIDEO SHOWCASE */}
-      <section className="relative py-24 md:py-32 overflow-hidden">
+      {/* WHO WE ARE "” multicolor city gradient */}
+      <section className="py-24 md:py-32 bg-city-gradient-red">
         <div className="mx-auto max-w-[1500px] px-5 lg:px-10">
-          <div className="grid lg:grid-cols-12 gap-8 items-end mb-12">
-            <div className="lg:col-span-7">
-              <div className="text-xs font-display tracking-[0.3em] text-sauce-red mb-4">/ 01 — THE CAMPAIGN</div>
-              <h2 className="font-display text-6xl md:text-8xl lg:text-9xl text-balance">
-                MORE THAN <span className="text-stroke">MERCH</span>.<br />
-                IT'S A <span className="text-sauce-red">MOVEMENT</span>.
+          <div className="grid lg:grid-cols-2 gap-16 items-center">
+            <div>
+              <div className="text-xs font-display tracking-[0.3em] text-sauce-red mb-4">/ 01 "” OUR MISSION</div>
+              <h2 className="font-display text-6xl md:text-8xl text-foreground leading-[0.9]">
+                FOR <span className="text-sauce-red">EVERY</span><br />
+                BODY.
               </h2>
+              <p className="mt-8 text-foreground/70 text-lg leading-relaxed max-w-lg">
+                Young or seasoned. New York to Houston. The Soft City Collection was designed for ALL of us "” every city, every generation, every culture.
+              </p>
+              <div className="grid grid-cols-3 gap-6 mt-10 max-w-md">
+                {[
+                  { n: "50+", l: "Cities" },
+                  { n: "All", l: "Ages" },
+                  { n: "1", l: "Collection" },
+                ].map((s) => (
+                  <div key={s.l} className="text-center p-4 bg-white/50 rounded">
+                    <div className="font-display text-4xl text-sauce-red">{s.n}</div>
+                    <div className="text-xs tracking-[0.2em] text-foreground/60 mt-1">{s.l.toUpperCase()}</div>
+                  </div>
+                ))}
+              </div>
             </div>
-            <div className="lg:col-span-4 lg:col-start-9 text-foreground/70 text-sm leading-relaxed">
-              <p>Filmed across three cities with the kids who built this thing from the floor up. Real culture, no actors, no permission asked.</p>
-            </div>
-          </div>
-
-          <div className="relative aspect-[16/9] overflow-hidden clip-tilt group">
-            <img src={storyBg} alt="Behind the campaign" width={1920} height={1080}
-              loading="lazy"
-              className="h-full w-full object-cover transition-transform duration-1000 group-hover:scale-105" />
-            <div className="absolute inset-0 bg-background/30" />
-            <button className="absolute inset-0 grid place-items-center" aria-label="Play campaign film">
-              <span className="h-24 w-24 md:h-32 md:w-32 rounded-full bg-bone/90 grid place-items-center text-ink hover:bg-sauce-red hover:text-bone transition-colors">
-                <Play className="h-10 w-10 fill-current ml-1" />
-              </span>
-            </button>
-            <div className="absolute bottom-6 left-6 right-6 flex justify-between text-bone text-xs font-display tracking-[0.3em]">
-              <span>● LIVE</span>
-              <span>02:48 / 04:12</span>
+            <div className="relative aspect-[4/5] overflow-hidden clip-tilt hover-zoom">
+              <img src={storyBg} alt="City culture" width={1080} height={1350} loading="lazy"
+                className="h-full w-full object-cover" />
+              <div className="absolute inset-0 bg-gradient-to-tr from-sauce-red/30 to-transparent" />
+              <div className="absolute top-4 left-4 px-3 py-1 bg-sauce-red text-bone font-display tracking-[0.2em] text-xs">SOFT CITY COLLECTION</div>
             </div>
           </div>
         </div>
       </section>
 
-      {/* FEATURED COLLECTIONS */}
-      <section className="py-24 md:py-32 bg-card">
+      {/* FEATURED COLLECTIONS "” light bg with color borders */}
+      <section className="py-24 md:py-32 bg-background">
         <div className="mx-auto max-w-[1500px] px-5 lg:px-10">
           <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-6 mb-14">
             <div>
-              <div className="text-xs font-display tracking-[0.3em] text-sauce-red mb-4">/ 02 — COLLECTIONS</div>
+              <div className="text-xs font-display tracking-[0.3em] text-sauce-red mb-4">/ 02 "” COLLECTIONS</div>
               <h2 className="font-display text-6xl md:text-8xl">FOUR <span className="text-stroke">WORLDS</span>.<br />ONE CITY.</h2>
             </div>
             <Link to="/collections/streetwear" className="font-display tracking-[0.18em] text-sm inline-flex items-center gap-2 self-start md:self-end hover:text-sauce-red">
@@ -184,19 +248,17 @@ function Home() {
 
           <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6">
             {[
-              { name: "Graduation", tag: "Class of '26", img: colGrad, accent: "var(--sauce-gold)", to: "/collections/graduation" },
-              { name: "Foodie", tag: "Hot Sauce Edition", img: colFoodie, accent: "var(--sauce-orange)", to: "/collections/foodie" },
-              { name: "World Cup", tag: "Limited Capsule", img: colWC, accent: "var(--sauce-red)", to: "/collections/worldcup" },
-              { name: "Streetwear", tag: "Daily Essentials", img: colStreet, accent: "var(--sauce-green)", to: "/collections/streetwear" },
+              { name: "Graduation", tag: "Class of '26", img: colGrad, border: "col-card-gold", accent: "var(--sauce-gold)", to: "/collections/graduation" },
+              { name: "Foodie", tag: "Hot Sauce Edition", img: colFoodie, border: "col-card-orange", accent: "var(--sauce-orange)", to: "/collections/foodie" },
+              { name: "World Cup", tag: "Limited Capsule", img: colWC, border: "col-card-red", accent: "var(--sauce-red)", to: "/collections/worldcup" },
+              { name: "Streetwear", tag: "Daily Essentials", img: colStreet, border: "col-card-green", accent: "var(--sauce-green)", to: "/collections/streetwear" },
             ].map((c, idx) => (
-              <Link key={c.name} to={c.to as "/"} className="group relative overflow-hidden bg-background block aspect-[3/4] hover-zoom">
+              <Link key={c.name} to={c.to as "/"} className={`group relative overflow-hidden bg-card block aspect-[3/4] hover-zoom ${c.border}`}>
                 <img src={c.img} alt={c.name} width={800} height={1066} loading="lazy"
                   className="h-full w-full object-cover" />
-                <div className="absolute inset-0 bg-gradient-to-t from-background via-background/30 to-transparent" />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent" />
                 <div className="absolute top-4 left-4 text-bone/80 text-[10px] font-display tracking-[0.3em]">0{idx + 1}</div>
-                <div className="absolute top-4 right-4 px-2 py-1 text-[10px] font-display tracking-[0.2em]" style={{ background: c.accent, color: "var(--ink)" }}>
-                  NEW
-                </div>
+                <div className="absolute top-4 right-4 px-2 py-1 text-[10px] font-display tracking-[0.2em]" style={{ background: c.accent, color: "var(--ink)" }}>NEW</div>
                 <div className="absolute bottom-0 left-0 right-0 p-5">
                   <div className="text-xs font-display tracking-[0.3em] text-bone/70 mb-1">{c.tag.toUpperCase()}</div>
                   <h3 className="font-display text-4xl md:text-5xl text-bone leading-none">{c.name.toUpperCase()}</h3>
@@ -210,19 +272,19 @@ function Home() {
         </div>
       </section>
 
-      {/* TRENDING PRODUCTS */}
-      <section className="py-24 md:py-32">
+      {/* TRENDING PRODUCTS "” warm card bg */}
+      <section className="py-24 md:py-32 bg-city-gradient-gold">
         <div className="mx-auto max-w-[1500px] px-5 lg:px-10">
           <div className="flex items-end justify-between mb-14">
             <div>
-              <div className="text-xs font-display tracking-[0.3em] text-sauce-red mb-4">/ 03 — TRENDING NOW</div>
+              <div className="text-xs font-display tracking-[0.3em] text-sauce-red mb-4">/ 03 "” TRENDING NOW</div>
               <h2 className="font-display text-6xl md:text-8xl">HOT <span className="text-sauce-red">DROPS</span></h2>
             </div>
             <div className="hidden md:flex gap-2 text-xs font-display tracking-[0.2em]">
               <button className="px-4 py-2 bg-foreground text-background">ALL</button>
-              <button className="px-4 py-2 border border-border hover:bg-foreground hover:text-background transition">HOODIES</button>
-              <button className="px-4 py-2 border border-border hover:bg-foreground hover:text-background transition">TEES</button>
-              <button className="px-4 py-2 border border-border hover:bg-foreground hover:text-background transition">ACCESSORIES</button>
+              <button className="px-4 py-2 border border-foreground/30 hover:bg-foreground hover:text-background transition">HOODIES</button>
+              <button className="px-4 py-2 border border-foreground/30 hover:bg-foreground hover:text-background transition">TEES</button>
+              <button className="px-4 py-2 border border-foreground/30 hover:bg-foreground hover:text-background transition">ACCESSORIES</button>
             </div>
           </div>
 
@@ -258,32 +320,32 @@ function Home() {
         </div>
       </section>
 
-      {/* BRAND STORY */}
-      <section className="relative py-32 overflow-hidden">
+      {/* BRAND STORY "” dark accent block (client loves the dark content/text) */}
+      <section className="relative py-32 overflow-hidden bg-[#111]">
         <img src={storyBg} alt="" aria-hidden width={1920} height={1080} loading="lazy"
-          className="absolute inset-0 h-full w-full object-cover opacity-40" />
-        <div className="absolute inset-0 bg-gradient-to-r from-background via-background/80 to-transparent" />
+          className="absolute inset-0 h-full w-full object-cover opacity-30" />
+        <div className="absolute inset-0 bg-gradient-to-r from-[#111] via-[#111]/90 to-transparent" />
         <div className="relative mx-auto max-w-[1500px] px-5 lg:px-10 grid lg:grid-cols-12 gap-10 items-center">
           <div className="lg:col-span-7">
-            <div className="text-xs font-display tracking-[0.3em] text-sauce-red mb-4">/ 04 — THE STORY</div>
-            <h2 className="font-display text-6xl md:text-8xl lg:text-9xl leading-[0.85]">
+            <div className="text-xs font-display tracking-[0.3em] text-sauce-red mb-4">/ 04 "” THE STORY</div>
+            <h2 className="font-display text-6xl md:text-8xl lg:text-9xl leading-[0.85] text-bone">
               BORN ON<br />
-              <span className="text-stroke">CAMPUS</span>.<br />
+              <span className="text-stroke-bone">CAMPUS</span>.<br />
               RAISED IN THE<br />
               <span className="text-sauce-red">STREETS</span>.
             </h2>
-            <p className="mt-8 max-w-xl text-foreground/70 text-lg leading-relaxed">
-              Sauce City started as a late-night dorm room idea between three friends who couldn't find merch that actually felt like them. Two years later, it's a movement of 200,000+ kids reppin' the culture worldwide.
+            <p className="mt-8 max-w-xl text-bone/70 text-lg leading-relaxed">
+              Sauce City started as a late-night dorm room idea. Today, it belongs to every city, every neighborhood, every generation "” nationwide.
             </p>
             <div className="grid grid-cols-3 gap-6 mt-12 max-w-lg">
               {[
                 { n: "200K+", l: "Community" },
-                { n: "47", l: "Countries" },
+                { n: "50+", l: "Cities" },
                 { n: "4", l: "Drops/Year" },
               ].map((s) => (
                 <div key={s.l}>
                   <div className="font-display text-4xl md:text-5xl text-sauce-red">{s.n}</div>
-                  <div className="text-xs tracking-[0.2em] text-foreground/60 mt-2">{s.l.toUpperCase()}</div>
+                  <div className="text-xs tracking-[0.2em] text-bone/60 mt-2">{s.l.toUpperCase()}</div>
                 </div>
               ))}
             </div>
@@ -291,12 +353,12 @@ function Home() {
         </div>
       </section>
 
-      {/* SOCIAL PROOF */}
-      <section className="py-24 md:py-32 bg-card">
+      {/* SOCIAL PROOF "” purple gradient */}
+      <section className="py-24 md:py-32 bg-city-gradient-purple">
         <div className="mx-auto max-w-[1500px] px-5 lg:px-10">
           <div className="text-center mb-14">
-            <div className="text-xs font-display tracking-[0.3em] text-sauce-red mb-4">/ 05 — THE VOICES</div>
-            <h2 className="font-display text-6xl md:text-8xl">SAID BY THE <span className="text-sauce-red">CITY</span></h2>
+            <div className="text-xs font-display tracking-[0.3em] text-sauce-purple mb-4">/ 05 "” THE VOICES</div>
+            <h2 className="font-display text-6xl md:text-8xl">SAID BY THE <span className="text-sauce-purple">CITY</span></h2>
           </div>
           <div className="grid md:grid-cols-3 gap-6">
             {[
@@ -304,7 +366,7 @@ function Home() {
               { name: "@tristan.k", role: "Creator, 240k", quote: "Sauce City stays on rotation. Quality is real, fits are clean, vibes immaculate.", img: colStreet },
               { name: "@sofi.r", role: "Athlete, USC", quote: "World Cup capsule is fire. Wore the jersey to the watch party. Whole crew copped after.", img: colFoodie },
             ].map((r) => (
-              <article key={r.name} className="bg-background overflow-hidden group">
+              <article key={r.name} className="bg-white/70 backdrop-blur overflow-hidden group">
                 <div className="aspect-[4/5] overflow-hidden">
                   <img src={r.img} alt={r.name} width={600} height={750} loading="lazy"
                     className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-105" />
@@ -319,7 +381,7 @@ function Home() {
                       <div className="font-display tracking-wide">{r.name}</div>
                       <div className="text-xs text-muted-foreground">{r.role}</div>
                     </div>
-                    <span className="text-xs font-display tracking-[0.2em] text-sauce-red">VERIFIED</span>
+                    <span className="text-xs font-display tracking-[0.2em] text-sauce-purple">VERIFIED</span>
                   </div>
                 </div>
               </article>
@@ -328,39 +390,37 @@ function Home() {
         </div>
       </section>
 
-      {/* WORLD CUP CAMPAIGN */}
-      <section className="relative py-24 md:py-32 overflow-hidden bg-foreground text-background">
+      {/* WORLD CUP CAMPAIGN "” dark block (client loves dark content) */}
+      <section className="relative py-24 md:py-32 overflow-hidden bg-[#0d0d0d] text-bone">
         <img src={colWC} alt="" aria-hidden width={1280} height={1600} loading="lazy"
-          className="absolute right-0 top-0 h-full w-1/2 object-cover opacity-40 hidden md:block" />
-        <div className="absolute inset-0 bg-gradient-to-r from-foreground via-foreground/70 to-transparent" />
+          className="absolute right-0 top-0 h-full w-1/2 object-cover opacity-30 hidden md:block" />
+        <div className="absolute inset-0 bg-gradient-to-r from-[#0d0d0d] via-[#0d0d0d]/80 to-transparent" />
         <div className="relative mx-auto max-w-[1500px] px-5 lg:px-10">
-          <div className="text-xs font-display tracking-[0.3em] text-sauce-red mb-4">/ 06 — LIMITED CAPSULE</div>
+          <div className="text-xs font-display tracking-[0.3em] text-sauce-red mb-4">/ 06 "” LIMITED CAPSULE</div>
           <h2 className="font-display text-6xl md:text-8xl lg:text-[10rem] leading-[0.85] max-w-3xl">
             WORLD CUP<br /><span className="text-sauce-red">2026</span><br />DROPS IN
           </h2>
-          <div className="mt-10">
-            <Countdown />
-          </div>
+          <div className="mt-10"><Countdown /></div>
           <div className="mt-10 flex flex-wrap items-center gap-6">
-            <Link to="/collections/worldcup" className="btn-sauce"><span>Reserve Yours</span><ArrowRight className="h-4 w-4" /></Link>
-            <div className="flex items-center gap-2 text-background/70 text-xs font-display tracking-[0.2em]">
+            <Link to="/collections/worldcup" className="btn-sauce-light"><span>Reserve Yours</span><ArrowRight className="h-4 w-4" /></Link>
+            <div className="flex items-center gap-2 text-bone/70 text-xs font-display tracking-[0.2em]">
               <Timer className="h-4 w-4 text-sauce-red" /> ONLY 500 PIECES PER COUNTRY
             </div>
           </div>
         </div>
       </section>
 
-      {/* FOODIE SECTION */}
-      <section className="relative py-32 overflow-hidden">
+      {/* FOODIE SECTION "” green gradient */}
+      <section className="relative py-32 overflow-hidden bg-city-gradient-green">
         <div className="mx-auto max-w-[1500px] px-5 lg:px-10 grid lg:grid-cols-2 gap-12 items-center">
           <div className="relative aspect-[4/5] overflow-hidden">
             <img src={colFoodie} alt="Foodie collection" width={1080} height={1350} loading="lazy"
               className="h-full w-full object-cover" />
-            <div className="absolute inset-0 bg-gradient-to-tr from-sauce-red/40 to-transparent mix-blend-multiply" />
+            <div className="absolute inset-0 bg-gradient-to-tr from-sauce-green/30 to-transparent mix-blend-multiply" />
             <div className="absolute top-4 left-4 px-3 py-1 bg-sauce-orange text-ink font-display tracking-[0.2em] text-xs">EXTRA SPICY</div>
           </div>
           <div>
-            <div className="text-xs font-display tracking-[0.3em] text-sauce-orange mb-4">/ 07 — FOODIE CULTURE</div>
+            <div className="text-xs font-display tracking-[0.3em] text-sauce-green mb-4">/ 07 "” FOODIE CULTURE</div>
             <h2 className="font-display text-6xl md:text-8xl lg:text-9xl leading-[0.85]">
               HOT<br /><span className="text-sauce-orange">SAUCE</span><br />SEASON.
             </h2>
@@ -377,12 +437,12 @@ function Home() {
         </div>
       </section>
 
-      {/* EMAIL CAPTURE */}
-      <section className="py-24 bg-background border-t border-border">
+      {/* EMAIL CAPTURE "” blue gradient */}
+      <section className="py-24 bg-city-gradient-blue border-t border-border">
         <div className="mx-auto max-w-[1500px] px-5 lg:px-10">
           <div className="grid lg:grid-cols-12 gap-10 items-center">
             <div className="lg:col-span-6">
-              <div className="text-xs font-display tracking-[0.3em] text-sauce-red mb-4">/ 08 — JOIN THE MOVEMENT</div>
+              <div className="text-xs font-display tracking-[0.3em] text-sauce-blue mb-4">/ 08 "” JOIN THE MOVEMENT</div>
               <h2 className="font-display text-5xl md:text-7xl lg:text-8xl leading-[0.9]">
                 EARLY ACCESS.<br />
                 <span className="text-stroke">LIMITED</span> DROPS.<br />
@@ -392,14 +452,14 @@ function Home() {
             <div className="lg:col-span-6">
               <form className="flex flex-col sm:flex-row gap-3" onSubmit={(e) => e.preventDefault()}>
                 <input type="email" required placeholder="your@email.com"
-                  className="flex-1 bg-card border border-border px-5 py-5 text-foreground placeholder:text-muted-foreground focus:outline-none focus:border-sauce-red font-display tracking-widest" />
+                  className="flex-1 bg-white/70 border border-border px-5 py-5 text-foreground placeholder:text-muted-foreground focus:outline-none focus:border-sauce-red font-display tracking-widest" />
                 <button className="btn-sauce justify-center"><span>Join</span><ArrowRight className="h-4 w-4" /></button>
               </form>
               <p className="mt-4 text-xs text-muted-foreground tracking-wider">By signing up you agree to our Privacy Policy. Unsubscribe anytime.</p>
               <div className="mt-8 flex items-center gap-6 text-xs font-display tracking-[0.2em] text-foreground/60">
-                <span>✓ EARLY ACCESS</span>
-                <span>✓ 15% OFF FIRST DROP</span>
-                <span>✓ BEHIND THE SCENES</span>
+                <span>âœ“ EARLY ACCESS</span>
+                <span>âœ“ 15% OFF FIRST DROP</span>
+                <span>âœ“ BEHIND THE SCENES</span>
               </div>
             </div>
           </div>
@@ -410,3 +470,4 @@ function Home() {
     </div>
   );
 }
+

@@ -1,4 +1,4 @@
-@import "tailwindcss" source(none);
+﻿@import "tailwindcss" source(none);
 @source "../src";
 @import "tw-animate-css";
 
@@ -32,6 +32,8 @@
   --color-sauce-orange: var(--sauce-orange);
   --color-sauce-green: var(--sauce-green);
   --color-sauce-gold: var(--sauce-gold);
+  --color-sauce-purple: var(--sauce-purple);
+  --color-sauce-blue: var(--sauce-blue);
   --color-ink: var(--ink);
   --color-bone: var(--bone);
   --font-display: var(--font-display);
@@ -40,38 +42,48 @@
 
 :root {
   --radius: 0.25rem;
-  --background: oklch(0.08 0.005 280);
-  --foreground: oklch(0.98 0.005 80);
-  --card: oklch(0.12 0.008 280);
-  --card-foreground: oklch(0.98 0.005 80);
-  --popover: oklch(0.10 0.005 280);
-  --popover-foreground: oklch(0.98 0.005 80);
-  --primary: oklch(0.98 0.005 80);
-  --primary-foreground: oklch(0.08 0.005 280);
-  --secondary: oklch(0.16 0.008 280);
-  --secondary-foreground: oklch(0.98 0.005 80);
-  --muted: oklch(0.18 0.008 280);
-  --muted-foreground: oklch(0.65 0.01 280);
+  /* Softer, warmer off-white/cream background â€” client said "not dark" */
+  --background: oklch(0.97 0.008 80);
+  --foreground: oklch(0.12 0.01 280);
+  --card: oklch(0.93 0.01 80);
+  --card-foreground: oklch(0.12 0.01 280);
+  --popover: oklch(0.95 0.008 80);
+  --popover-foreground: oklch(0.12 0.01 280);
+  --primary: oklch(0.12 0.01 280);
+  --primary-foreground: oklch(0.97 0.008 80);
+  --secondary: oklch(0.90 0.015 80);
+  --secondary-foreground: oklch(0.12 0.01 280);
+  --muted: oklch(0.88 0.012 80);
+  --muted-foreground: oklch(0.45 0.02 280);
   --accent: oklch(0.62 0.245 27);
-  --accent-foreground: oklch(0.98 0.005 80);
+  --accent-foreground: oklch(0.97 0.008 80);
   --destructive: oklch(0.62 0.245 27);
-  --destructive-foreground: oklch(0.98 0.005 80);
-  --border: oklch(0.22 0.008 280);
-  --input: oklch(0.22 0.008 280);
+  --destructive-foreground: oklch(0.97 0.008 80);
+  --border: oklch(0.82 0.015 80);
+  --input: oklch(0.82 0.015 80);
   --ring: oklch(0.62 0.245 27);
 
+  /* Vibrant multicolor brand palette */
   --sauce-red: oklch(0.62 0.245 27);
   --sauce-orange: oklch(0.72 0.19 50);
-  --sauce-green: oklch(0.82 0.25 145);
-  --sauce-gold: oklch(0.82 0.16 85);
-  --ink: oklch(0.08 0.005 280);
-  --bone: oklch(0.96 0.01 80);
+  --sauce-green: oklch(0.60 0.20 145);
+  --sauce-gold: oklch(0.78 0.16 85);
+  --sauce-purple: oklch(0.55 0.22 295);
+  --sauce-blue: oklch(0.58 0.20 240);
+  --ink: oklch(0.10 0.01 280);
+  --bone: oklch(0.97 0.008 80);
 
   --font-display: "Bebas Neue", "Anton", Impact, sans-serif;
   --font-sans: "Inter", system-ui, sans-serif;
 }
 
-.dark { color-scheme: dark; }
+/* Dark section overrides for hero and special blocks */
+.section-dark {
+  --background: oklch(0.10 0.008 280);
+  --foreground: oklch(0.97 0.008 80);
+  background-color: oklch(0.10 0.008 280);
+  color: oklch(0.97 0.008 80);
+}
 
 @layer base {
   * { border-color: var(--color-border); }
@@ -94,6 +106,10 @@
   .font-display { font-family: var(--font-display); }
   .text-balance { text-wrap: balance; }
   .text-stroke {
+    -webkit-text-stroke: 1.5px var(--ink);
+    color: transparent;
+  }
+  .text-stroke-bone {
     -webkit-text-stroke: 1.5px var(--bone);
     color: transparent;
   }
@@ -104,8 +120,8 @@
   .grain::before {
     content: "";
     position: absolute; inset: 0;
-    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3'/%3E%3CfeColorMatrix values='0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.35 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
-    opacity: 0.4;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3'/%3E%3CfeColorMatrix values='0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.25 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+    opacity: 0.3;
     pointer-events: none;
     mix-blend-mode: overlay;
   }
@@ -139,14 +155,52 @@
   }
   .hover-zoom img { transition: transform 1.2s cubic-bezier(.2,.8,.2,1); }
   .hover-zoom:hover img { transform: scale(1.08); }
+
+  /* Hero Rotating Banner */
+  .hero-slide {
+    position: absolute; inset: 0;
+    opacity: 0;
+    transition: opacity 1.2s ease-in-out;
+    pointer-events: none;
+  }
+  .hero-slide.active {
+    opacity: 1;
+    pointer-events: auto;
+  }
+  @keyframes slide-indicator {
+    from { width: 0%; }
+    to { width: 100%; }
+  }
+  .slide-indicator-bar {
+    animation: slide-indicator 5s linear forwards;
+  }
+
+  /* Gradient city color backgrounds */
+  .bg-city-gradient-red {
+    background: linear-gradient(135deg, oklch(0.95 0.04 27) 0%, oklch(0.92 0.02 50) 100%);
+  }
+  .bg-city-gradient-purple {
+    background: linear-gradient(135deg, oklch(0.94 0.04 295) 0%, oklch(0.92 0.02 240) 100%);
+  }
+  .bg-city-gradient-gold {
+    background: linear-gradient(135deg, oklch(0.95 0.05 85) 0%, oklch(0.93 0.04 50) 100%);
+  }
+  .bg-city-gradient-green {
+    background: linear-gradient(135deg, oklch(0.93 0.05 145) 0%, oklch(0.92 0.03 180) 100%);
+  }
+  .bg-city-gradient-blue {
+    background: linear-gradient(135deg, oklch(0.93 0.04 240) 0%, oklch(0.94 0.03 295) 100%);
+  }
+
+  /* Button styles */
   .btn-sauce {
     position: relative;
     display: inline-flex;
     align-items: center;
     gap: 0.6rem;
     padding: 1rem 1.6rem;
-    background: var(--bone);
-    color: var(--ink);
+    background: var(--ink);
+    color: var(--bone);
     font-family: var(--font-display);
     font-size: 1rem;
     letter-spacing: 0.12em;
@@ -165,7 +219,44 @@
   .btn-sauce:hover::before { transform: translateY(0); }
   .btn-sauce > * { position: relative; z-index: 1; }
   .btn-sauce:hover { color: var(--bone); }
+  .btn-sauce-light {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.6rem;
+    padding: 1rem 1.6rem;
+    background: var(--bone);
+    color: var(--ink);
+    font-family: var(--font-display);
+    font-size: 1rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    overflow: hidden;
+    transition: transform .25s ease;
+  }
+  .btn-sauce-light::before {
+    content: "";
+    position: absolute; inset: 0;
+    background: var(--sauce-red);
+    transform: translateY(101%);
+    transition: transform .35s cubic-bezier(.7,0,.3,1);
+    z-index: 0;
+  }
+  .btn-sauce-light:hover::before { transform: translateY(0); }
+  .btn-sauce-light > * { position: relative; z-index: 1; }
+  .btn-sauce-light:hover { color: var(--bone); }
   .btn-ghost {
+    display: inline-flex; align-items: center; gap:.6rem;
+    padding: 1rem 1.6rem;
+    border: 1px solid var(--ink);
+    color: var(--ink);
+    font-family: var(--font-display);
+    letter-spacing: .12em;
+    text-transform: uppercase;
+    transition: background .25s ease, color .25s ease;
+  }
+  .btn-ghost:hover { background: var(--ink); color: var(--bone); }
+  .btn-ghost-light {
     display: inline-flex; align-items: center; gap:.6rem;
     padding: 1rem 1.6rem;
     border: 1px solid var(--bone);
@@ -175,5 +266,14 @@
     text-transform: uppercase;
     transition: background .25s ease, color .25s ease;
   }
-  .btn-ghost:hover { background: var(--bone); color: var(--ink); }
+  .btn-ghost-light:hover { background: var(--bone); color: var(--ink); }
+
+  /* Collection card accent colors */
+  .col-card-red { border-top: 4px solid var(--sauce-red); }
+  .col-card-orange { border-top: 4px solid var(--sauce-orange); }
+  .col-card-green { border-top: 4px solid var(--sauce-green); }
+  .col-card-gold { border-top: 4px solid var(--sauce-gold); }
+  .col-card-purple { border-top: 4px solid var(--sauce-purple); }
+  .col-card-blue { border-top: 4px solid var(--sauce-blue); }
 }
+
