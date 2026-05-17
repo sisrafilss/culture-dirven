@@ -1,5 +1,5 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { ArrowRight, ArrowUpRight, Play, Star, Flame, Timer, ChevronLeft, ChevronRight } from "lucide-react";
+import { ArrowRight, ArrowUpRight, Play, Star, Flame, Timer, ChevronLeft, ChevronRight, Truck, RotateCcw, ShieldCheck, Headphones, Check } from "lucide-react";
 import { useEffect, useState, useCallback } from "react";
 import { AnnouncementBar } from "@/components/site/AnnouncementBar";
 import { Header } from "@/components/site/Header";
@@ -168,6 +168,86 @@ function Countdown() {
   );
 }
 
+function BenefitsRow() {
+  return (
+    <section className="bg-background py-10 border-b border-border/30">
+      <div className="mx-auto max-w-[1500px] px-5 lg:px-10 flex flex-wrap gap-6 justify-center md:justify-between items-center text-center">
+        {[
+          { icon: Truck, text: "Free Shipping & Free Returns" },
+          { icon: RotateCcw, text: "Ships in 24 Hours" },
+          { icon: ShieldCheck, text: "Ships from USA" },
+          { icon: Headphones, text: "Support 24/7 Available" },
+        ].map((b, i) => (
+          <div key={i} className="flex flex-col items-center gap-3 p-4 min-w-[200px] bg-white/50 rounded-md">
+            <b.icon className="h-8 w-8 text-sauce-red" />
+            <span className="font-display tracking-[0.1em] text-sm text-foreground/80">{b.text.toUpperCase()}</span>
+          </div>
+        ))}
+      </div>
+    </section>
+  );
+}
+
+function ShopByCategory() {
+  return (
+    <section className="py-20 bg-background">
+      <div className="mx-auto max-w-[1500px] px-5 lg:px-10">
+        <h2 className="font-display text-4xl md:text-5xl mb-10 text-center">Shop by Category</h2>
+        <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6">
+          {[
+            { name: "T-Shirts", img: productTee },
+            { name: "Hoodies", img: productHoodie },
+            { name: "Headwear", img: productCap },
+            { name: "Outerwear", img: productJacket },
+          ].map((c, i) => (
+            <Link key={i} to="/collections/streetwear" className="group relative aspect-square overflow-hidden bg-card hover-zoom rounded-md">
+              <img src={c.img} alt={c.name} className="h-full w-full object-cover opacity-80 group-hover:opacity-100 transition-opacity" />
+              <div className="absolute inset-0 bg-black/20 group-hover:bg-transparent transition-colors" />
+              <div className="absolute inset-0 flex items-center justify-center">
+                <span className="font-display text-2xl md:text-3xl text-bone tracking-widest drop-shadow-md bg-black/40 px-4 py-2 rounded">{c.name.toUpperCase()}</span>
+              </div>
+            </Link>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function ProductGridSection({ title, products }: { title: string, products: any[] }) {
+  return (
+    <section className="py-16 bg-background">
+      <div className="mx-auto max-w-[1500px] px-5 lg:px-10">
+        <h2 className="font-display text-4xl md:text-5xl mb-10">{title}</h2>
+        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4 md:gap-6">
+          {products.map((p, i) => (
+            <Link key={i} to={"/products/$slug" as "/"} params={{ slug: p.slug } as never} className="group block">
+              <div className="relative aspect-[4/5] overflow-hidden bg-card hover-zoom rounded-md">
+                <img src={p.img} alt={p.name} width={800} height={1000} loading="lazy" className="h-full w-full object-cover" />
+                <button className="absolute bottom-3 left-3 right-3 bg-foreground text-background py-2 font-display tracking-[0.2em] text-xs opacity-0 translate-y-4 group-hover:opacity-100 group-hover:translate-y-0 transition-all">
+                  ADD TO CART
+                </button>
+              </div>
+              <div className="mt-3 text-center">
+                <div className="font-display tracking-wide text-sm">{p.name.toUpperCase()}</div>
+                <div className="font-display text-base mt-1 text-sauce-red">${p.price}</div>
+              </div>
+            </Link>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+const mockProductsApparel = [
+  { name: "Classic Logo Tee", price: 35, img: productTee, slug: "classic-tee" },
+  { name: "Fall Season Jacket", price: 120, img: productJacket, slug: "fall-jacket" },
+  { name: "Spicy Hoodie", price: 75, img: productHoodie, slug: "spicy-hoodie" },
+  { name: "Everyday Tee", price: 40, img: productTee, slug: "everyday-tee" },
+  { name: "Culture Cap", price: 25, img: productCap, slug: "culture-cap" },
+];
+
 function Home() {
   return (
     <div className="bg-background text-foreground">
@@ -176,6 +256,9 @@ function Home() {
 
       {/* ROTATING HERO BANNER */}
       <HeroBanner />
+
+      {/* BENEFITS ROW */}
+      <BenefitsRow />
 
       {/* MARQUEE STRIP "” multicolor */}
       <section className="bg-sauce-red text-bone py-5 overflow-hidden border-y border-sauce-red">
@@ -196,6 +279,12 @@ function Home() {
           </div>
         </div>
       </section>
+
+      {/* SHOP BY CATEGORY */}
+      <ShopByCategory />
+
+      {/* SHOP APPAREL */}
+      <ProductGridSection title="Shop Apparel" products={mockProductsApparel} />
 
       {/* WHO WE ARE "” multicolor city gradient */}
       <section className="py-24 md:py-32 bg-city-gradient-red">
@@ -296,7 +385,7 @@ function Home() {
               { name: "Varsity Jacket '26", price: 165, badge: "LIMITED", img: productJacket, slug: "varsity-jacket-26" },
             ].map((p) => (
               <Link key={p.name} to={"/products/$slug" as "/"} params={{ slug: p.slug } as never} className="group block">
-                <div className="relative aspect-[4/5] overflow-hidden bg-card hover-zoom">
+                <div className="relative aspect-[4/5] overflow-hidden bg-card hover-zoom rounded-md">
                   <img src={p.img} alt={p.name} width={800} height={1000} loading="lazy"
                     className="h-full w-full object-cover" />
                   <span className="absolute top-3 left-3 bg-sauce-red text-bone text-[10px] font-display tracking-[0.2em] px-2 py-1">{p.badge}</span>
@@ -320,6 +409,10 @@ function Home() {
         </div>
       </section>
 
+      {/* MORE PRODUCT GRIDS */}
+      <ProductGridSection title="Exclusive for New Grades" products={mockProductsApparel.slice().reverse()} />
+      <ProductGridSection title="For Atlanta People" products={[...mockProductsApparel].sort(() => Math.random() - 0.5)} />
+      
       {/* BRAND STORY "” dark accent block (client loves the dark content/text) */}
       <section className="relative py-32 overflow-hidden bg-[#111]">
         <img src={storyBg} alt="" aria-hidden width={1920} height={1080} loading="lazy"
@@ -410,6 +503,9 @@ function Home() {
         </div>
       </section>
 
+      {/* EXCLUSIVE FOR WORLD CUP */}
+      <ProductGridSection title="Exclusive For World Cup" products={mockProductsApparel} />
+
       {/* FOODIE SECTION "” green gradient */}
       <section className="relative py-32 overflow-hidden bg-city-gradient-green">
         <div className="mx-auto max-w-[1500px] px-5 lg:px-10 grid lg:grid-cols-2 gap-12 items-center">
@@ -457,9 +553,9 @@ function Home() {
               </form>
               <p className="mt-4 text-xs text-muted-foreground tracking-wider">By signing up you agree to our Privacy Policy. Unsubscribe anytime.</p>
               <div className="mt-8 flex items-center gap-6 text-xs font-display tracking-[0.2em] text-foreground/60">
-                <span>âœ“ EARLY ACCESS</span>
-                <span>âœ“ 15% OFF FIRST DROP</span>
-                <span>âœ“ BEHIND THE SCENES</span>
+                <span className="flex items-center"><Check className="h-4 w-4 mr-1 text-sauce-red"/> EARLY ACCESS</span>
+                <span className="flex items-center"><Check className="h-4 w-4 mr-1 text-sauce-red"/> 15% OFF FIRST DROP</span>
+                <span className="flex items-center"><Check className="h-4 w-4 mr-1 text-sauce-red"/> BEHIND THE SCENES</span>
               </div>
             </div>
           </div>
