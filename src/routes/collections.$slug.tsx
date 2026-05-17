@@ -2,7 +2,7 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { AnnouncementBar } from "@/components/site/AnnouncementBar";
 import { Header } from "@/components/site/Header";
 import { Footer } from "@/components/site/Footer";
-import { SlidersHorizontal, Star, ArrowRight } from "lucide-react";
+import { ChevronDown, ChevronRight, ChevronLeft, AlignVerticalJustifyStart, LayoutGrid, Grid3x3, Grid2x2 } from "lucide-react";
 import productHoodie from "@/assets/product-hoodie.jpg";
 import productTee from "@/assets/product-tee.jpg";
 import productCap from "@/assets/product-cap.jpg";
@@ -11,6 +11,8 @@ import colGrad from "@/assets/col-graduation.jpg";
 import colFoodie from "@/assets/col-foodie.jpg";
 import colWC from "@/assets/col-worldcup.jpg";
 import colStreet from "@/assets/col-street.jpg";
+import neonBistroHoodie from "@/assets/neon-bistro-hoodie.png";
+import { useState } from "react";
 
 export const Route = createFileRoute("/collections/$slug")({
   head: ({ params }) => ({
@@ -29,94 +31,186 @@ const META: Record<string, { name: string; tag: string; hero: string; accent: st
   streetwear: { name: "Streetwear", tag: "Daily Essentials", hero: colStreet, accent: "var(--sauce-green)", copy: "The everyday rotation. Heavyweight cotton, oversized cuts, built to outlast the trends." },
 };
 
+const CATEGORIES = [
+  { name: "Graduations", img: colGrad, slug: "graduation" },
+  { name: "Foodie Community", img: colFoodie, slug: "foodie" },
+  { name: "Streetwear", img: colStreet, slug: "streetwear" },
+  { name: "World Cups", img: colWC, slug: "worldcup" },
+];
+
 function cap(s: string) { return s ? s[0].toUpperCase() + s.slice(1) : ""; }
 
-const PRODUCTS = [
-  { name: "Heavyweight Hoodie", price: 89, img: productHoodie, slug: "heavyweight-hoodie", badge: "BESTSELLER" },
-  { name: "Sauce Drip Tee", price: 45, img: productTee, slug: "sauce-drip-tee", badge: "NEW" },
-  { name: "Flame Snapback", price: 35, img: productCap, slug: "flame-snapback", badge: "LOW STOCK" },
-  { name: "Varsity Jacket '26", price: 165, img: productJacket, slug: "varsity-jacket-26", badge: "LIMITED" },
-  { name: "City Oversized Tee", price: 50, img: productTee, slug: "city-tee", badge: "" },
-  { name: "Boxy Crewneck", price: 75, img: productHoodie, slug: "boxy-crew", badge: "" },
-  { name: "6-Panel Cap", price: 30, img: productCap, slug: "six-panel-cap", badge: "" },
-  { name: "Bomber Jacket", price: 145, img: productJacket, slug: "bomber-jacket", badge: "NEW" },
-];
+const COLLECTION_PRODUCTS: Record<string, Array<{ name: string; price: number; img: string; slug: string; bg: string }>> = {
+  graduation: [
+    { name: "CLASS OF '26 VARSITY JACKET", price: 185.00, img: productJacket, slug: "grad-varsity-26", bg: "bg-[#e8e4e1]" },
+    { name: "GOLD TASSLE HEAVYWEIGHT HOODIE", price: 95.00, img: productHoodie, slug: "gold-tassle-hoodie", bg: "bg-[#eadaaf]" },
+    { name: "ALUMNI PREMIUM TEE", price: 42.00, img: productTee, slug: "alumni-premium-tee", bg: "bg-[#f5f2eb]" },
+    { name: "COMMENCEMENT CORD SNAPBACK", price: 38.00, img: productCap, slug: "commencement-cap", bg: "bg-[#f0ece3]" },
+    { name: "GRADUATE EMBROIDERED CREWNECK", price: 80.00, img: productHoodie, slug: "grad-crewneck", bg: "bg-[#dce3ec]" },
+    { name: "SENIOR YEAR ESSENTIAL HOODIE", price: 89.00, img: productHoodie, slug: "senior-essential-hoodie", bg: "bg-[#e2e9e4]" },
+  ],
+  foodie: [
+    { name: "HOT SAUCE VINTAGE TEE", price: 38.00, img: productTee, slug: "hot-sauce-tee", bg: "bg-[#eed9c4]" },
+    { name: "LATE-NIGHT NEON BISTRO HOODIE", price: 92.00, img: neonBistroHoodie, slug: "neon-bistro-hoodie", bg: "bg-[#f7f5f2]" },
+    { name: "STREET FOOD CULTURE TEE", price: 35.00, img: productTee, slug: "street-food-tee", bg: "bg-[#f0e3d5]" },
+    { name: "CHEF'S CAPSULE SNAPBACK", price: 32.00, img: productCap, slug: "chefs-snapback", bg: "bg-[#e6dfd5]" },
+    { name: "EXTRA SPICY ZIP-UP HOODIE", price: 98.00, img: productHoodie, slug: "extra-spicy-hoodie", bg: "bg-[#f5e3e1]" },
+    { name: "UMAMI FLAVORS SWEATSHIRT", price: 85.00, img: productHoodie, slug: "umami-sweatshirt", bg: "bg-[#dee2e6]" },
+  ],
+  worldcup: [
+    { name: "STRIKER WORLD CUP JERSEY", price: 75.00, img: productTee, slug: "striker-wc-jersey", bg: "bg-[#e1ecf7]" },
+    { name: "PITCH-SIDE WINDBREAKER", price: 145.00, img: productJacket, slug: "pitch-windbreaker", bg: "bg-[#e1f0e7]" },
+    { name: "CHAMPIONS EDITION HOODIE", price: 95.00, img: productHoodie, slug: "champions-hoodie", bg: "bg-[#f7eed9]" },
+    { name: "NATIONAL GOLD 6-PANEL CAP", price: 35.00, img: productCap, slug: "national-gold-cap", bg: "bg-[#e2dfd9]" },
+    { name: "PITCH ACTIVE CREWNECK", price: 85.00, img: productHoodie, slug: "pitch-active-crew", bg: "bg-[#f0f3f6]" },
+    { name: "WORLD STADIUM HOODIE", price: 90.00, img: productHoodie, slug: "world-stadium-hoodie", bg: "bg-[#eed9c4]" },
+  ],
+  streetwear: [
+    { name: "DAILY HEAVYWEIGHT HOODIE", price: 89.00, img: productHoodie, slug: "daily-heavyweight-hoodie", bg: "bg-[#f4f4f4]" },
+    { name: "SAUCE DRIP PREMIUM TEE", price: 45.00, img: productTee, slug: "sauce-drip-tee", bg: "bg-[#d4b99f]" },
+    { name: "FLAME EMBROIDERED SNAPBACK", price: 35.00, img: productCap, slug: "flame-snapback", bg: "bg-[#111111]" },
+    { name: "VARSITY JACKET '26", price: 165.00, img: productJacket, slug: "varsity-jacket-26", bg: "bg-[#2b2b2b]" },
+    { name: "CITY OVERSIZED TEE", price: 50.00, img: productTee, slug: "city-tee", bg: "bg-[#e8e4e1]" },
+    { name: "BOMBER JACKET", price: 145.00, img: productJacket, slug: "bomber-jacket", bg: "bg-[#b14925]" },
+  ]
+};
 
 function CollectionPage() {
   const { slug } = Route.useParams();
   const meta = META[slug] ?? { name: cap(slug), tag: "Collection", hero: colStreet, accent: "var(--sauce-red)", copy: "Premium drops from Sauce City." };
+  const products = COLLECTION_PRODUCTS[slug] ?? COLLECTION_PRODUCTS.streetwear;
+  const [cols, setCols] = useState(3);
 
   return (
-    <div className="bg-background text-foreground">
+    <div className="bg-background text-foreground min-h-screen">
       <AnnouncementBar />
       <Header />
 
-      <section className="relative h-[70svh] min-h-[500px] overflow-hidden">
+      {/* Fixed Parallax Banner: Darker overlay for readability */}
+      <section className="relative h-[40svh] min-h-[300px] overflow-hidden bg-black">
         <img src={meta.hero} alt={meta.name} width={1920} height={1080}
-          className="absolute inset-0 h-full w-full object-cover" />
-        <div className="absolute inset-0 bg-gradient-to-t from-background via-background/40 to-background/30" />
-        <div className="grain absolute inset-0" />
-        <div className="relative z-10 mx-auto max-w-[1500px] px-5 lg:px-10 h-full flex flex-col justify-end pb-14">
-          <div className="text-xs font-display tracking-[0.3em] text-bone/80 mb-3 flex items-center gap-3">
-            <Link to="/" className="hover:text-sauce-red">HOME</Link> / <span style={{ color: meta.accent }}>{meta.tag.toUpperCase()}</span>
+          className="absolute inset-0 h-full w-full object-cover opacity-50" />
+        <div className="relative z-10 mx-auto max-w-[1500px] px-5 lg:px-10 h-full flex flex-col justify-center items-center text-center">
+          <div className="text-xs font-display tracking-[0.3em] text-white/80 mb-3 flex items-center gap-3 uppercase">
+            <Link to="/" className="hover:text-sauce-red">HOME</Link> / <span style={{ color: meta.accent }}>{meta.tag}</span>
           </div>
-          <h1 className="font-display text-[18vw] md:text-[12vw] leading-[0.85] text-bone">
-            {meta.name.toUpperCase()}
+          <h1 className="font-display text-5xl md:text-7xl text-white uppercase tracking-wider">
+            {meta.name}
           </h1>
-          <p className="mt-6 max-w-xl text-bone/80 text-base md:text-lg">{meta.copy}</p>
+          <p className="mt-4 max-w-xl text-white/80 text-sm md:text-base">{meta.copy}</p>
         </div>
       </section>
 
-      <section className="border-y border-border sticky top-16 z-30 bg-background/90 backdrop-blur">
-        <div className="mx-auto max-w-[1500px] px-5 lg:px-10 py-4 flex items-center justify-between gap-4 text-xs font-display tracking-[0.2em]">
-          <button className="inline-flex items-center gap-2 hover:text-sauce-red"><SlidersHorizontal className="h-4 w-4" /> FILTER & SORT</button>
-          <span className="text-muted-foreground">{PRODUCTS.length} ITEMS</span>
-          <div className="hidden md:flex gap-2">
-            {["NEWEST", "PRICE ↑", "PRICE ↓", "POPULAR"].map((s, i) => (
-              <button key={s} className={`px-3 py-1.5 ${i === 0 ? "bg-foreground text-background" : "border border-border hover:bg-foreground hover:text-background"} transition`}>{s}</button>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      <section className="py-12">
-        <div className="mx-auto max-w-[1500px] px-5 lg:px-10 grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
-          {PRODUCTS.map((p) => (
-            <Link key={p.slug} to={"/products/$slug" as "/"} params={{ slug: p.slug } as never} className="group block">
-              <div className="relative aspect-[4/5] overflow-hidden bg-card hover-zoom">
-                <img src={p.img} alt={p.name} width={800} height={1000} loading="lazy"
-                  className="h-full w-full object-cover" />
-                {p.badge && <span className="absolute top-3 left-3 bg-sauce-red text-bone text-[10px] font-display tracking-[0.2em] px-2 py-1">{p.badge}</span>}
-                <button className="absolute bottom-3 left-3 right-3 bg-foreground text-background py-3 font-display tracking-[0.2em] text-xs opacity-0 translate-y-4 group-hover:opacity-100 group-hover:translate-y-0 transition-all">
-                  QUICK ADD +
-                </button>
-              </div>
-              <div className="mt-4 flex justify-between">
-                <div>
-                  <div className="flex items-center gap-1 text-sauce-gold mb-1">
-                    {[0,1,2,3,4].map(i => <Star key={i} className="h-3 w-3 fill-current" />)}
-                  </div>
-                  <div className="font-display tracking-wide text-sm">{p.name.toUpperCase()}</div>
+      <main className="mx-auto max-w-[1500px] px-5 lg:px-10 py-12">
+        {/* Category Carousel (from screenshot) */}
+        <div className="relative mb-16">
+          <button className="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-4 h-10 w-10 bg-background border border-border rounded-full flex items-center justify-center shadow-sm z-10 hover:bg-muted"><ChevronLeft className="h-5 w-5" /></button>
+          <div className="flex gap-4 overflow-x-auto snap-x scrollbar-hide py-2 px-1">
+            {CATEGORIES.map((c) => (
+              <Link key={c.slug} to={"/collections/$slug" as "/"} params={{ slug: c.slug } as never} className="snap-start shrink-0 relative w-64 h-64 md:w-72 md:h-72 rounded-xl overflow-hidden group">
+                <img src={c.img} alt={c.name} className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" />
+                <div className="absolute inset-0 bg-black/20 group-hover:bg-black/40 transition-colors" />
+                <div className="absolute inset-0 flex items-center justify-center p-6 text-center">
+                  <h3 className="text-white font-semibold text-lg md:text-xl drop-shadow-md">{c.name}</h3>
                 </div>
-                <div className="font-display text-lg">${p.price}</div>
-              </div>
-            </Link>
-          ))}
-        </div>
-      </section>
-
-      <section className="py-20 border-t border-border">
-        <div className="mx-auto max-w-[1500px] px-5 lg:px-10 text-center">
-          <h2 className="font-display text-5xl md:text-7xl">EXPLORE MORE</h2>
-          <div className="mt-8 flex flex-wrap justify-center gap-3">
-            {Object.entries(META).filter(([k]) => k !== slug).map(([k, v]) => (
-              <Link key={k} to={"/collections/$slug" as "/"} params={{ slug: k } as never} className="btn-ghost"><span>{v.name}</span><ArrowRight className="h-4 w-4" /></Link>
+              </Link>
             ))}
           </div>
+          <button className="absolute right-0 top-1/2 -translate-y-1/2 translate-x-4 h-10 w-10 bg-background border border-border rounded-full flex items-center justify-center shadow-sm z-10 hover:bg-muted"><ChevronRight className="h-5 w-5" /></button>
         </div>
-      </section>
+
+        <div className="flex flex-col lg:flex-row gap-10">
+          {/* Left Sidebar Filter */}
+          <aside className="w-full lg:w-64 shrink-0">
+            <h2 className="text-lg font-semibold mb-6">Filter:</h2>
+            
+            <div className="border-b border-border py-5">
+              <button className="flex w-full items-center justify-between font-medium">
+                Availability <ChevronDown className="h-4 w-4 text-muted-foreground" />
+              </button>
+              <div className="mt-4 space-y-3">
+                <label className="flex items-center gap-3 cursor-pointer">
+                  <input type="checkbox" className="w-4 h-4 rounded border-border accent-foreground" />
+                  <span className="text-sm text-muted-foreground">In stock (5)</span>
+                </label>
+                <label className="flex items-center gap-3 opacity-50 cursor-not-allowed">
+                  <input type="checkbox" disabled className="w-4 h-4 rounded border-border accent-foreground" />
+                  <span className="text-sm text-muted-foreground">Out of stock (0)</span>
+                </label>
+              </div>
+            </div>
+
+            <div className="border-b border-border py-5">
+              <button className="flex w-full items-center justify-between font-medium">
+                Price <ChevronDown className="h-4 w-4 text-muted-foreground" />
+              </button>
+              <div className="mt-6">
+                <div className="relative h-1 bg-muted rounded-full mb-6">
+                  <div className="absolute left-0 right-1/4 h-full bg-foreground rounded-full" />
+                  <div className="absolute left-0 top-1/2 -translate-y-1/2 w-4 h-4 bg-background border-2 border-foreground rounded-full shadow-sm cursor-grab" />
+                  <div className="absolute right-1/4 top-1/2 -translate-y-1/2 w-4 h-4 bg-background border-2 border-foreground rounded-full shadow-sm cursor-grab" />
+                </div>
+                <div className="flex items-center gap-3">
+                  <div className="relative flex-1">
+                    <span className="absolute left-3 top-1/2 -translate-y-1/2 text-muted-foreground text-sm">$</span>
+                    <input type="text" value="0" readOnly className="w-full border border-border rounded-md py-2 pl-6 pr-3 text-sm text-muted-foreground bg-transparent" />
+                  </div>
+                  <div className="relative flex-1">
+                    <span className="absolute left-3 top-1/2 -translate-y-1/2 text-muted-foreground text-sm">$</span>
+                    <input type="text" value="320.00" readOnly className="w-full border border-border rounded-md py-2 pl-6 pr-3 text-sm text-muted-foreground bg-transparent" />
+                  </div>
+                </div>
+              </div>
+            </div>
+          </aside>
+
+          {/* Product Grid Area */}
+          <div className="flex-1">
+            {/* Toolbar */}
+            <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 mb-8">
+              <div className="flex items-center gap-2">
+                <button onClick={() => setCols(2)} className={`p-1.5 rounded-sm ${cols === 2 ? 'bg-muted' : 'hover:bg-muted/50 text-muted-foreground'}`}><Grid2x2 className="h-5 w-5" /></button>
+                <button onClick={() => setCols(3)} className={`p-1.5 rounded-sm ${cols === 3 ? 'bg-muted' : 'hover:bg-muted/50 text-muted-foreground'}`}><Grid3x3 className="h-5 w-5" /></button>
+                <button onClick={() => setCols(4)} className={`hidden md:block p-1.5 rounded-sm ${cols === 4 ? 'bg-muted' : 'hover:bg-muted/50 text-muted-foreground'}`}><LayoutGrid className="h-5 w-5" /></button>
+              </div>
+              
+              <div className="flex items-center gap-6 text-sm">
+                <div className="flex items-center gap-2">
+                  <span className="text-muted-foreground">Sort by:</span>
+                  <select className="bg-transparent font-medium text-foreground outline-none border-b border-transparent hover:border-border pb-0.5 cursor-pointer">
+                    <option>Most relevant</option>
+                    <option>Price: Low to High</option>
+                    <option>Price: High to Low</option>
+                    <option>Newest</option>
+                  </select>
+                </div>
+                <span className="text-muted-foreground hidden sm:inline-block">{products.length} Products</span>
+              </div>
+            </div>
+
+            {/* Grid */}
+            <div className={`grid gap-x-6 gap-y-10 ${cols === 2 ? 'grid-cols-2' : cols === 3 ? 'grid-cols-2 md:grid-cols-3' : 'grid-cols-2 md:grid-cols-4'}`}>
+              {products.map((p) => (
+                <div key={p.slug} className="group flex flex-col text-center">
+                  <Link to={"/products/$slug" as "/"} params={{ slug: p.slug } as never} className={`relative aspect-square md:aspect-[4/5] rounded-lg overflow-hidden mb-5 ${p.bg} flex items-center justify-center p-4`}>
+                    <img src={p.img} alt={p.name} loading="lazy" className="max-w-full max-h-full object-contain mix-blend-multiply group-hover:scale-105 transition-transform duration-500" />
+                  </Link>
+                  <Link to={"/products/$slug" as "/"} params={{ slug: p.slug } as never}>
+                    <h3 className="font-medium text-sm md:text-base uppercase tracking-wide mb-1.5">{p.name}</h3>
+                  </Link>
+                  <p className="text-muted-foreground text-sm mb-4">${p.price.toFixed(2)}</p>
+                  <button className="mt-auto w-full bg-foreground text-background py-3 font-medium text-sm hover:bg-foreground/90 transition-colors">
+                    Add To Cart
+                  </button>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+      </main>
 
       <Footer />
     </div>
   );
 }
+
