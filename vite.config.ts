@@ -13,7 +13,7 @@ export default defineConfig({
     tanstackStart({
       server: {
         preset: 'vercel',
-      },
+      }
     }),
     react(),
   ],
