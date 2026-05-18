@@ -131,7 +131,7 @@
     from { transform: translateX(0); }
     to { transform: translateX(-100%); }
   }
-  .marquee-fast .marquee-track { animation-duration: 14s; }
+  .marquee-fast .marquee-track { animation-duration: 42s; }
   .reveal-up {
     animation: reveal-up 0.9s cubic-bezier(0.22, 1, 0.36, 1) both;
   }
