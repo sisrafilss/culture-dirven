@@ -15,6 +15,8 @@ import productJacket from "@/assets/product-jacket.jpg";
 import storyBg from "@/assets/story-bg.jpg";
 import heroBanner1 from "@/assets/hero-banner-1.jpg";
 import heroBanner2 from "@/assets/hero-banner-2.jpg";
+import backgroundVideo from "@/assets/video/bacvkground-video.mp4";
+import imageWithText from "@/assets/image-with-text.png";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -208,6 +210,81 @@ function ShopByCategory() {
   );
 }
 
+function FoodieDripSection() {
+  return (
+    <section className="bg-background py-14 md:py-20">
+      <div className="mx-auto grid max-w-[1500px] items-center gap-8 px-5 lg:grid-cols-2 lg:gap-16 lg:px-10">
+        <div className="relative overflow-hidden bg-black">
+          <img
+            src={imageWithText}
+            alt="Atlanta foodie streetwear"
+            loading="lazy"
+            className="aspect-[4/3] h-full w-full object-cover md:aspect-[16/10]"
+          />
+          <div className="absolute inset-0 bg-gradient-to-tr from-black/20 via-transparent to-sauce-red/20" />
+        </div>
+        <div className="max-w-xl">
+          <h2 className="font-display text-5xl leading-[0.95] text-foreground md:text-7xl">
+            The Perfect Drip – Streetwear
+            <br />
+            <span className="text-sauce-red">Meets Flavor</span>
+          </h2>
+          <p className="mt-6 max-w-md text-sm font-semibold leading-relaxed text-foreground/75 md:text-base">
+            From Lemon Pepper Wings to Peach Cobbler vibes, our designs bring Atlanta’s foodie culture straight to your wardrobe. Rep your city in style!
+          </p>
+          <Link
+            to="/collections/foodie"
+            className="mt-8 inline-flex bg-foreground px-8 py-4 font-display text-sm tracking-[0.18em] text-background transition hover:bg-sauce-red hover:text-bone"
+          >
+            SHOP THE COLLECTION
+          </Link>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function VideoPromoSection() {
+  return (
+    <section className="relative w-full overflow-hidden bg-black">
+      <div className="relative min-h-[420px] w-full overflow-hidden bg-black md:min-h-[560px]">
+        <video
+          className="absolute inset-0 h-full w-full object-cover"
+          src={backgroundVideo}
+          autoPlay
+          muted
+          loop
+          playsInline
+          preload="metadata"
+        />
+        <div className="absolute inset-0 bg-sauce-red/10 mix-blend-multiply" />
+        <div className="absolute inset-0 bg-gradient-to-r from-black/70 via-black/35 to-sauce-red/15" />
+        <div className="absolute inset-0 bg-gradient-to-t from-black/45 via-transparent to-black/10" />
+        <div className="absolute bottom-0 left-0 right-0 h-1 bg-sauce-red" />
+        <div className="relative z-10 mx-auto flex min-h-[420px] max-w-[1500px] items-center px-5 py-14 sm:px-8 md:min-h-[560px] lg:px-10">
+          <div className="max-w-xl text-bone">
+            <p className="font-display text-3xl leading-none tracking-[0.02em] text-bone/90 md:text-5xl">
+              STYLED FOR THE STREETS
+            </p>
+            <h2 className="mt-2 font-display text-5xl leading-[0.9] tracking-[0.02em] md:text-7xl lg:text-8xl">
+              INSPIRED BY <span className="text-sauce-red">THE EATS</span>
+            </h2>
+            <p className="mt-4 max-w-md text-base font-semibold text-bone/85 md:text-xl">
+              Get the perfect blend of style and comfort today!
+            </p>
+            <Link
+              to="/collections/foodie"
+              className="mt-6 inline-flex min-w-40 items-center justify-center bg-sauce-red px-8 py-4 font-display text-xl tracking-[0.08em] text-bone transition hover:bg-bone hover:text-ink"
+            >
+              SHOP NOW
+            </Link>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}
+
 function ProductGridSection({ title, products }: { title: string, products: any[] }) {
   return (
     <section className="py-16 bg-background">
@@ -273,6 +350,12 @@ function Home() {
           </div>
         </div>
       </section>
+
+      {/* FOODIE DRIP FEATURE */}
+      <FoodieDripSection />
+
+      {/* VIDEO PROMO */}
+      <VideoPromoSection />
 
       {/* SHOP BY CATEGORY */}
       <ShopByCategory />
