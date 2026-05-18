@@ -13,30 +13,24 @@ import productTee from "@/assets/product-tee.jpg";
 import productCap from "@/assets/product-cap.jpg";
 import productJacket from "@/assets/product-jacket.jpg";
 import storyBg from "@/assets/story-bg.jpg";
-import heroBanner1 from "@/assets/hero-banner-1.png";
-import heroBanner2 from "@/assets/hero-banner-2.png";
-import heroBanner3 from "@/assets/hero-banner-3.png";
-import heroBanner4 from "@/assets/hero-banner-4.png";
-import heroBanner5 from "@/assets/hero-banner-5.png";
+import heroBanner1 from "@/assets/hero-banner-1.jpg";
+import heroBanner2 from "@/assets/hero-banner-2.jpg";
 
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
-      { title: "Sauce City - Rep The Culture" },
-      { name: "description", content: "Premium streetwear merch where food, fashion and culture collide. Shop graduation, foodie, World Cup and streetwear drops." },
-      { property: "og:title", content: "Sauce City - Rep The Culture" },
-      { property: "og:description", content: "Premium streetwear for the next generation." },
+      { title: "Sauce City Atlanta - Who Got The Sauce" },
+      { name: "description", content: "Atlanta-born Sauce City merch for foodies, streetwear lovers, and everyone asking Who Got The Sauce." },
+      { property: "og:title", content: "Sauce City Atlanta - Who Got The Sauce" },
+      { property: "og:description", content: "Premium Atlanta streetwear for foodies and culture movers." },
     ],
   }),
   component: Home,
 });
 
 const HERO_SLIDES = [
-  { img: heroBanner1, city: "NEW YORK", tag: "ALL AGES WELCOME", label: "SLIDE 01" },
-  { img: heroBanner2, city: "LOS ANGELES", tag: "EVERY GENERATION", label: "SLIDE 02" },
-  { img: heroBanner3, city: "CHICAGO", tag: "YOUR CITY. YOUR STYLE.", label: "SLIDE 03" },
-  { img: heroBanner4, city: "ATLANTA", tag: "NATIONWIDE COLLECTION", label: "SLIDE 04" },
-  { img: heroBanner5, city: "HOUSTON", tag: "SOFT CITY COLLECTION", label: "SLIDE 05" },
+  { img: heroBanner1, city: "ATLANTA", tag: "WHO GOT THE SAUCE", label: "DROP 01" },
+  { img: heroBanner2, city: "SAUCE CITY", tag: "FOODIE CULTURE", label: "DROP 02" },
 ];
 
 function HeroBanner() {
@@ -66,7 +60,7 @@ function HeroBanner() {
   }, [active, next]);
 
   return (
-    <section className="relative min-h-[100svh] overflow-hidden bg-[#0a0a0a]">
+    <section className="relative min-h-[100svh] overflow-hidden bg-black">
       {HERO_SLIDES.map((slide, i) => (
         <div key={i} className={`hero-slide${i === active ? " active" : ""}`}>
           <img src={slide.img} alt={slide.city} width={1920} height={1080}
@@ -79,8 +73,8 @@ function HeroBanner() {
 
       <div className="relative z-10 mx-auto max-w-[1500px] px-5 lg:px-10 pt-20 pb-16 min-h-[100svh] flex flex-col justify-between">
         <div className="flex items-center justify-between text-xs font-display tracking-[0.3em] text-bone/70">
-          <span>SOFT CITY COLLECTION</span>
-          <span className="hidden md:inline">SHOT IN "” {HERO_SLIDES[active].city}</span>
+          <span>SAUCE CITY ATLANTA</span>
+          <span className="hidden md:inline">MADE FOR "” {HERO_SLIDES[active].city}</span>
           <span>{HERO_SLIDES[active].label}</span>
         </div>
 
@@ -90,12 +84,12 @@ function HeroBanner() {
             <span className="text-xs font-display tracking-[0.3em] text-bone">{HERO_SLIDES[active].tag}</span>
           </div>
           <h1 className="font-display text-[20vw] md:text-[14vw] lg:text-[12rem] leading-[0.85] text-bone">
-            REP THE
+            WHO GOT
             <br />
-            <span className="text-stroke-red">CUL</span><span className="text-sauce-red">TURE</span>
+            <span className="text-stroke-red">THE</span> <span className="text-sauce-red">SAUCE</span>
           </h1>
           <p className="mt-8 max-w-xl text-bone/80 text-base md:text-lg leading-relaxed">
-            For every city, every generation, every culture. Built for the young, the seasoned, and everyone in between.
+            Sauce City is Atlanta flavor stitched into premium streetwear for every Foodie, creator, and culture mover.
           </p>
           <div className="flex flex-wrap gap-4 mt-10">
             <Link to="/collections/streetwear" className="btn-sauce-light"><span>Shop Collection</span><ArrowRight className="h-4 w-4" /></Link>
@@ -119,11 +113,11 @@ function HeroBanner() {
             </div>
           </div>
           <div className="flex items-center gap-6 text-xs font-display tracking-[0.3em]">
-            <span className="hidden md:inline">ALL AGES</span>
+            <span className="hidden md:inline">ATLANTA MADE</span>
             <span className="hidden md:inline">/</span>
-            <span>50+ CITIES</span>
+            <span>FOODIE APPROVED</span>
             <span>/</span>
-            <span>SHIPPED NATIONWIDE</span>
+            <span>SAUCE CITY WORLDWIDE</span>
           </div>
         </div>
       </div>
@@ -192,7 +186,7 @@ function ShopByCategory() {
   return (
     <section className="py-20 bg-background">
       <div className="mx-auto max-w-[1500px] px-5 lg:px-10">
-        <h2 className="font-display text-4xl md:text-5xl mb-10 text-center">Shop by Category</h2>
+        <h2 className="font-display text-4xl md:text-5xl mb-10 text-center">Shop Sauce City Categories</h2>
         <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6">
           {[
             { name: "T-Shirts", img: productTee },
@@ -264,14 +258,14 @@ function Home() {
       <section className="bg-sauce-red text-bone py-5 overflow-hidden border-y border-sauce-red">
         <div className="marquee">
           <div className="marquee-track">
-            {["SOFT CITY COLLECTION", "EST. 2024", "REP THE CULTURE", "ALL AGES", "ALL CITIES", "NATIONWIDE", "YOUR STYLE", "EVERYBODY"].map((t, i) => (
+            {["SAUCE CITY", "ATLANTA", "WHO GOT THE SAUCE", "FOODIE FAVORITES", "REP THE FLAVOR", "NATIONWIDE", "YOUR STYLE", "EVERYBODY EATS"].map((t, i) => (
               <span key={i} className="font-display text-4xl md:text-6xl tracking-[0.06em] whitespace-nowrap inline-flex items-center gap-8">
                 {t} <Flame className="h-6 w-6 text-bone/60" />
               </span>
             ))}
           </div>
           <div className="marquee-track" aria-hidden>
-            {["SOFT CITY COLLECTION", "EST. 2024", "REP THE CULTURE", "ALL AGES", "ALL CITIES", "NATIONWIDE", "YOUR STYLE", "EVERYBODY"].map((t, i) => (
+            {["SAUCE CITY", "ATLANTA", "WHO GOT THE SAUCE", "FOODIE FAVORITES", "REP THE FLAVOR", "NATIONWIDE", "YOUR STYLE", "EVERYBODY EATS"].map((t, i) => (
               <span key={i} className="font-display text-4xl md:text-6xl tracking-[0.06em] whitespace-nowrap inline-flex items-center gap-8">
                 {t} <Flame className="h-6 w-6 text-bone/60" />
               </span>
@@ -284,26 +278,26 @@ function Home() {
       <ShopByCategory />
 
       {/* SHOP APPAREL */}
-      <ProductGridSection title="Shop Apparel" products={mockProductsApparel} />
+      <ProductGridSection title="Shop Sauce City Apparel" products={mockProductsApparel} />
 
       {/* WHO WE ARE "” multicolor city gradient */}
-      <section className="py-24 md:py-32 bg-city-gradient-red">
+      <section className="py-24 md:py-32 bg-premium-red-wash">
         <div className="mx-auto max-w-[1500px] px-5 lg:px-10">
           <div className="grid lg:grid-cols-2 gap-16 items-center">
             <div>
-              <div className="text-xs font-display tracking-[0.3em] text-sauce-red mb-4">/ 01 "” OUR MISSION</div>
+              <div className="text-xs font-display tracking-[0.3em] text-sauce-red mb-4">/ 01 "” ATLANTA MISSION</div>
               <h2 className="font-display text-6xl md:text-8xl text-foreground leading-[0.9]">
-                FOR <span className="text-sauce-red">EVERY</span><br />
-                BODY.
+                SAUCE CITY<br />
+                <span className="text-sauce-red">ATLANTA</span>.
               </h2>
               <p className="mt-8 text-foreground/70 text-lg leading-relaxed max-w-lg">
-                Young or seasoned. New York to Houston. The Soft City Collection was designed for ALL of us "” every city, every generation, every culture.
+                Built for the Foodie who knows the best spots, the creative who sets the tone, and everyone asking Who Got The Sauce.
               </p>
               <div className="grid grid-cols-3 gap-6 mt-10 max-w-md">
                 {[
-                  { n: "50+", l: "Cities" },
-                  { n: "All", l: "Ages" },
-                  { n: "1", l: "Collection" },
+                  { n: "ATL", l: "Home" },
+                  { n: "Foodie", l: "Energy" },
+                  { n: "Sauce", l: "City" },
                 ].map((s) => (
                   <div key={s.l} className="text-center p-4 bg-white/50 rounded">
                     <div className="font-display text-4xl text-sauce-red">{s.n}</div>
@@ -313,10 +307,10 @@ function Home() {
               </div>
             </div>
             <div className="relative aspect-[4/5] overflow-hidden clip-tilt hover-zoom">
-              <img src={storyBg} alt="City culture" width={1080} height={1350} loading="lazy"
+              <img src={storyBg} alt="Atlanta Sauce City culture" width={1080} height={1350} loading="lazy"
                 className="h-full w-full object-cover" />
               <div className="absolute inset-0 bg-gradient-to-tr from-sauce-red/30 to-transparent" />
-              <div className="absolute top-4 left-4 px-3 py-1 bg-sauce-red text-bone font-display tracking-[0.2em] text-xs">SOFT CITY COLLECTION</div>
+              <div className="absolute top-4 left-4 px-3 py-1 bg-sauce-red text-bone font-display tracking-[0.2em] text-xs">WHO GOT THE SAUCE</div>
             </div>
           </div>
         </div>
@@ -327,8 +321,8 @@ function Home() {
         <div className="mx-auto max-w-[1500px] px-5 lg:px-10">
           <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-6 mb-14">
             <div>
-              <div className="text-xs font-display tracking-[0.3em] text-sauce-red mb-4">/ 02 "” COLLECTIONS</div>
-              <h2 className="font-display text-6xl md:text-8xl">FOUR <span className="text-stroke">WORLDS</span>.<br />ONE CITY.</h2>
+              <div className="text-xs font-display tracking-[0.3em] text-sauce-red mb-4">/ 02 "” SAUCE CITY COLLECTIONS</div>
+              <h2 className="font-display text-6xl md:text-8xl">ATLANTA <span className="text-stroke">FLAVOR</span>.<br />ONE SAUCE CITY.</h2>
             </div>
             <Link to="/collections/streetwear" className="font-display tracking-[0.18em] text-sm inline-flex items-center gap-2 self-start md:self-end hover:text-sauce-red">
               VIEW ALL <ArrowUpRight className="h-4 w-4" />
@@ -337,10 +331,10 @@ function Home() {
 
           <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6">
             {[
-              { name: "Graduation", tag: "Class of '26", img: colGrad, border: "col-card-gold", accent: "var(--sauce-gold)", to: "/collections/graduation" },
-              { name: "Foodie", tag: "Hot Sauce Edition", img: colFoodie, border: "col-card-orange", accent: "var(--sauce-orange)", to: "/collections/foodie" },
-              { name: "World Cup", tag: "Limited Capsule", img: colWC, border: "col-card-red", accent: "var(--sauce-red)", to: "/collections/worldcup" },
-              { name: "Streetwear", tag: "Daily Essentials", img: colStreet, border: "col-card-green", accent: "var(--sauce-green)", to: "/collections/streetwear" },
+              { name: "Graduation", tag: "Sauce City Class", img: colGrad, border: "col-card-red", accent: "var(--sauce-red)", to: "/collections/graduation" },
+              { name: "Foodie", tag: "Who Got The Sauce", img: colFoodie, border: "col-card-red", accent: "var(--sauce-red)", to: "/collections/foodie" },
+              { name: "World Cup", tag: "Atlanta Watch Party", img: colWC, border: "col-card-red", accent: "var(--sauce-red)", to: "/collections/worldcup" },
+              { name: "Streetwear", tag: "Sauce City Daily", img: colStreet, border: "col-card-red", accent: "var(--sauce-red)", to: "/collections/streetwear" },
             ].map((c, idx) => (
               <Link key={c.name} to={c.to as "/"} className={`group relative overflow-hidden bg-card block aspect-[3/4] hover-zoom ${c.border}`}>
                 <img src={c.img} alt={c.name} width={800} height={1066} loading="lazy"
@@ -361,13 +355,13 @@ function Home() {
         </div>
       </section>
 
-      {/* TRENDING PRODUCTS "” warm card bg */}
-      <section className="py-24 md:py-32 bg-city-gradient-gold">
+      {/* TRENDING PRODUCTS */}
+      <section className="py-24 md:py-32 bg-premium-soft-red">
         <div className="mx-auto max-w-[1500px] px-5 lg:px-10">
           <div className="flex items-end justify-between mb-14">
             <div>
-              <div className="text-xs font-display tracking-[0.3em] text-sauce-red mb-4">/ 03 "” TRENDING NOW</div>
-              <h2 className="font-display text-6xl md:text-8xl">HOT <span className="text-sauce-red">DROPS</span></h2>
+              <div className="text-xs font-display tracking-[0.3em] text-sauce-red mb-4">/ 03 "” WHO GOT THE SAUCE</div>
+              <h2 className="font-display text-6xl md:text-8xl">ATLANTA <span className="text-sauce-red">DROPS</span></h2>
             </div>
             <div className="hidden md:flex gap-2 text-xs font-display tracking-[0.2em]">
               <button className="px-4 py-2 bg-foreground text-background">ALL</button>
@@ -395,7 +389,7 @@ function Home() {
                 </div>
                 <div className="mt-4 flex justify-between items-start">
                   <div>
-                    <div className="flex items-center gap-1 text-sauce-gold mb-1">
+                    <div className="flex items-center gap-1 text-sauce-red mb-1">
                       {[0,1,2,3,4].map(i => <Star key={i} className="h-3 w-3 fill-current" />)}
                       <span className="text-[10px] text-muted-foreground ml-1">(248)</span>
                     </div>
@@ -410,31 +404,31 @@ function Home() {
       </section>
 
       {/* MORE PRODUCT GRIDS */}
-      <ProductGridSection title="Exclusive for New Grades" products={mockProductsApparel.slice().reverse()} />
-      <ProductGridSection title="For Atlanta People" products={[...mockProductsApparel].sort(() => Math.random() - 0.5)} />
+      <ProductGridSection title="Sauce City For New Grades" products={mockProductsApparel.slice().reverse()} />
+      <ProductGridSection title="For Atlanta Foodie People" products={[...mockProductsApparel].sort(() => Math.random() - 0.5)} />
       
       {/* BRAND STORY "” dark accent block (client loves the dark content/text) */}
-      <section className="relative py-32 overflow-hidden bg-[#111]">
+      <section className="relative py-32 overflow-hidden bg-black">
         <img src={storyBg} alt="" aria-hidden width={1920} height={1080} loading="lazy"
           className="absolute inset-0 h-full w-full object-cover opacity-30" />
-        <div className="absolute inset-0 bg-gradient-to-r from-[#111] via-[#111]/90 to-transparent" />
+        <div className="absolute inset-0 bg-gradient-to-r from-black via-black/90 to-transparent" />
         <div className="relative mx-auto max-w-[1500px] px-5 lg:px-10 grid lg:grid-cols-12 gap-10 items-center">
           <div className="lg:col-span-7">
             <div className="text-xs font-display tracking-[0.3em] text-sauce-red mb-4">/ 04 "” THE STORY</div>
             <h2 className="font-display text-6xl md:text-8xl lg:text-9xl leading-[0.85] text-bone">
-              BORN ON<br />
-              <span className="text-stroke-bone">CAMPUS</span>.<br />
-              RAISED IN THE<br />
-              <span className="text-sauce-red">STREETS</span>.
+              BORN IN<br />
+              <span className="text-stroke-bone">ATLANTA</span>.<br />
+              BUILT BY<br />
+              <span className="text-sauce-red">SAUCE CITY</span>.
             </h2>
             <p className="mt-8 max-w-xl text-bone/70 text-lg leading-relaxed">
-              Sauce City started as a late-night dorm room idea. Today, it belongs to every city, every neighborhood, every generation "” nationwide.
+              Sauce City started with the Foodie spirit of Atlanta: bold plates, louder fits, and one question that never gets old: Who Got The Sauce?
             </p>
             <div className="grid grid-cols-3 gap-6 mt-12 max-w-lg">
               {[
-                { n: "200K+", l: "Community" },
-                { n: "50+", l: "Cities" },
-                { n: "4", l: "Drops/Year" },
+                { n: "ATL", l: "Roots" },
+                { n: "Foodie", l: "Culture" },
+                { n: "Sauce", l: "Energy" },
               ].map((s) => (
                 <div key={s.l}>
                   <div className="font-display text-4xl md:text-5xl text-sauce-red">{s.n}</div>
@@ -446,18 +440,18 @@ function Home() {
         </div>
       </section>
 
-      {/* SOCIAL PROOF "” purple gradient */}
-      <section className="py-24 md:py-32 bg-city-gradient-purple">
+      {/* SOCIAL PROOF */}
+      <section className="py-24 md:py-32 bg-premium-contrast-wash">
         <div className="mx-auto max-w-[1500px] px-5 lg:px-10">
           <div className="text-center mb-14">
-            <div className="text-xs font-display tracking-[0.3em] text-sauce-purple mb-4">/ 05 "” THE VOICES</div>
-            <h2 className="font-display text-6xl md:text-8xl">SAID BY THE <span className="text-sauce-purple">CITY</span></h2>
+            <div className="text-xs font-display tracking-[0.3em] text-sauce-red mb-4">/ 05 "” ATLANTA VOICES</div>
+            <h2 className="font-display text-6xl md:text-8xl">WHO GOT THE <span className="text-sauce-red">SAUCE?</span></h2>
           </div>
           <div className="grid md:grid-cols-3 gap-6">
             {[
-              { name: "@maya.j", role: "Student, NYU", quote: "The hoodie hits different. Wore it to grad and got 30 DMs asking where it's from.", img: colGrad },
-              { name: "@tristan.k", role: "Creator, 240k", quote: "Sauce City stays on rotation. Quality is real, fits are clean, vibes immaculate.", img: colStreet },
-              { name: "@sofi.r", role: "Athlete, USC", quote: "World Cup capsule is fire. Wore the jersey to the watch party. Whole crew copped after.", img: colFoodie },
+              { name: "@maya.j", role: "Atlanta Student", quote: "Sauce City made my grad fit feel personal. Everybody kept asking Who Got The Sauce.", img: colGrad },
+              { name: "@tristan.k", role: "Foodie Creator", quote: "I wore it from brunch to the pop-up. Clean fit, Atlanta energy, real Foodie flavor.", img: colStreet },
+              { name: "@sofi.r", role: "Watch Party Host", quote: "The capsule is pure Sauce City. It feels made for the crew that brings the flavor.", img: colFoodie },
             ].map((r) => (
               <article key={r.name} className="bg-white/70 backdrop-blur overflow-hidden group">
                 <div className="aspect-[4/5] overflow-hidden">
@@ -465,7 +459,7 @@ function Home() {
                     className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-105" />
                 </div>
                 <div className="p-6">
-                  <div className="flex items-center gap-1 text-sauce-gold mb-3">
+                  <div className="flex items-center gap-1 text-sauce-red mb-3">
                     {[0,1,2,3,4].map(i => <Star key={i} className="h-3 w-3 fill-current" />)}
                   </div>
                   <p className="text-foreground/90 text-base leading-relaxed">"{r.quote}"</p>
@@ -474,7 +468,7 @@ function Home() {
                       <div className="font-display tracking-wide">{r.name}</div>
                       <div className="text-xs text-muted-foreground">{r.role}</div>
                     </div>
-                    <span className="text-xs font-display tracking-[0.2em] text-sauce-purple">VERIFIED</span>
+                    <span className="text-xs font-display tracking-[0.2em] text-sauce-red">VERIFIED</span>
                   </div>
                 </div>
               </article>
@@ -484,44 +478,44 @@ function Home() {
       </section>
 
       {/* WORLD CUP CAMPAIGN "” dark block (client loves dark content) */}
-      <section className="relative py-24 md:py-32 overflow-hidden bg-[#0d0d0d] text-bone">
+      <section className="relative py-24 md:py-32 overflow-hidden bg-black text-bone">
         <img src={colWC} alt="" aria-hidden width={1280} height={1600} loading="lazy"
           className="absolute right-0 top-0 h-full w-1/2 object-cover opacity-30 hidden md:block" />
-        <div className="absolute inset-0 bg-gradient-to-r from-[#0d0d0d] via-[#0d0d0d]/80 to-transparent" />
+        <div className="absolute inset-0 bg-gradient-to-r from-black via-black/80 to-transparent" />
         <div className="relative mx-auto max-w-[1500px] px-5 lg:px-10">
-          <div className="text-xs font-display tracking-[0.3em] text-sauce-red mb-4">/ 06 "” LIMITED CAPSULE</div>
+          <div className="text-xs font-display tracking-[0.3em] text-sauce-red mb-4">/ 06 "” ATLANTA LIMITED CAPSULE</div>
           <h2 className="font-display text-6xl md:text-8xl lg:text-[10rem] leading-[0.85] max-w-3xl">
-            WORLD CUP<br /><span className="text-sauce-red">2026</span><br />DROPS IN
+            WHO GOT<br /><span className="text-sauce-red">THE SAUCE</span><br />DROPS IN
           </h2>
           <div className="mt-10"><Countdown /></div>
           <div className="mt-10 flex flex-wrap items-center gap-6">
             <Link to="/collections/worldcup" className="btn-sauce-light"><span>Reserve Yours</span><ArrowRight className="h-4 w-4" /></Link>
             <div className="flex items-center gap-2 text-bone/70 text-xs font-display tracking-[0.2em]">
-              <Timer className="h-4 w-4 text-sauce-red" /> ONLY 500 PIECES PER COUNTRY
+              <Timer className="h-4 w-4 text-sauce-red" /> ONLY 500 PIECES FOR SAUCE CITY
             </div>
           </div>
         </div>
       </section>
 
       {/* EXCLUSIVE FOR WORLD CUP */}
-      <ProductGridSection title="Exclusive For World Cup" products={mockProductsApparel} />
+      <ProductGridSection title="Exclusive For Sauce City" products={mockProductsApparel} />
 
-      {/* FOODIE SECTION "” green gradient */}
-      <section className="relative py-32 overflow-hidden bg-city-gradient-green">
+      {/* FOODIE SECTION */}
+      <section className="relative py-32 overflow-hidden bg-premium-mono-wash">
         <div className="mx-auto max-w-[1500px] px-5 lg:px-10 grid lg:grid-cols-2 gap-12 items-center">
           <div className="relative aspect-[4/5] overflow-hidden">
             <img src={colFoodie} alt="Foodie collection" width={1080} height={1350} loading="lazy"
               className="h-full w-full object-cover" />
-            <div className="absolute inset-0 bg-gradient-to-tr from-sauce-green/30 to-transparent mix-blend-multiply" />
-            <div className="absolute top-4 left-4 px-3 py-1 bg-sauce-orange text-ink font-display tracking-[0.2em] text-xs">EXTRA SPICY</div>
+            <div className="absolute inset-0 bg-gradient-to-tr from-sauce-red/30 to-transparent mix-blend-multiply" />
+            <div className="absolute top-4 left-4 px-3 py-1 bg-sauce-red text-bone font-display tracking-[0.2em] text-xs">EXTRA SPICY</div>
           </div>
           <div>
-            <div className="text-xs font-display tracking-[0.3em] text-sauce-green mb-4">/ 07 "” FOODIE CULTURE</div>
+            <div className="text-xs font-display tracking-[0.3em] text-sauce-red mb-4">/ 07 "” ATLANTA FOODIE CULTURE</div>
             <h2 className="font-display text-6xl md:text-8xl lg:text-9xl leading-[0.85]">
-              HOT<br /><span className="text-sauce-orange">SAUCE</span><br />SEASON.
+              FOODIE<br /><span className="text-sauce-red">SAUCE</span><br />CITY.
             </h2>
             <p className="mt-8 text-foreground/70 text-lg max-w-md leading-relaxed">
-              Late-night cravings, neon diners, the 2am taco run. This is for the ones who eat loud and dress louder.
+              From Atlanta late-night plates to weekend pop-ups, this is for the Foodie crowd that eats loud and dresses louder.
             </p>
             <div className="flex flex-wrap gap-3 mt-8">
               {["HOT", "SPICY", "SAUCY", "DRIPPING", "EXTRA"].map(t => (
@@ -533,16 +527,16 @@ function Home() {
         </div>
       </section>
 
-      {/* EMAIL CAPTURE "” blue gradient */}
-      <section className="py-24 bg-city-gradient-blue border-t border-border">
+      {/* EMAIL CAPTURE */}
+      <section className="py-24 bg-premium-black-red border-t border-border">
         <div className="mx-auto max-w-[1500px] px-5 lg:px-10">
           <div className="grid lg:grid-cols-12 gap-10 items-center">
             <div className="lg:col-span-6">
-              <div className="text-xs font-display tracking-[0.3em] text-sauce-blue mb-4">/ 08 "” JOIN THE MOVEMENT</div>
+              <div className="text-xs font-display tracking-[0.3em] text-sauce-red mb-4">/ 08 "” JOIN SAUCE CITY</div>
               <h2 className="font-display text-5xl md:text-7xl lg:text-8xl leading-[0.9]">
-                EARLY ACCESS.<br />
-                <span className="text-stroke">LIMITED</span> DROPS.<br />
-                <span className="text-sauce-red">NO SPAM.</span>
+                ATLANTA ACCESS.<br />
+                <span className="text-stroke-bone">FOODIE</span> DROPS.<br />
+                <span className="text-sauce-red">WHO GOT THE SAUCE.</span>
               </h2>
             </div>
             <div className="lg:col-span-6">
@@ -551,8 +545,8 @@ function Home() {
                   className="flex-1 bg-white/70 border border-border px-5 py-5 text-foreground placeholder:text-muted-foreground focus:outline-none focus:border-sauce-red font-display tracking-widest" />
                 <button className="btn-sauce justify-center"><span>Join</span><ArrowRight className="h-4 w-4" /></button>
               </form>
-              <p className="mt-4 text-xs text-muted-foreground tracking-wider">By signing up you agree to our Privacy Policy. Unsubscribe anytime.</p>
-              <div className="mt-8 flex items-center gap-6 text-xs font-display tracking-[0.2em] text-foreground/60">
+              <p className="mt-4 text-xs text-bone/70 tracking-wider">By signing up you agree to our Privacy Policy. Unsubscribe anytime.</p>
+              <div className="mt-8 flex items-center gap-6 text-xs font-display tracking-[0.2em] text-bone/70">
                 <span className="flex items-center"><Check className="h-4 w-4 mr-1 text-sauce-red"/> EARLY ACCESS</span>
                 <span className="flex items-center"><Check className="h-4 w-4 mr-1 text-sauce-red"/> 15% OFF FIRST DROP</span>
                 <span className="flex items-center"><Check className="h-4 w-4 mr-1 text-sauce-red"/> BEHIND THE SCENES</span>

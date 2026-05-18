@@ -114,7 +114,7 @@ function ProductPage() {
             <div className="text-xs font-display tracking-[0.3em] text-sauce-red">SAUCE CITY / COLLECTION</div>
             <h1 className="font-display text-4xl md:text-5xl mt-3 leading-[0.95]">{productData.name.toUpperCase()}</h1>
             <div className="mt-4 flex items-center gap-3">
-              <div className="flex items-center gap-1 text-sauce-gold">
+              <div className="flex items-center gap-1 text-sauce-red">
                 {[0,1,2,3,4].map(i => <Star key={i} className="h-4 w-4 fill-current" />)}
               </div>
               <span className="text-sm text-muted-foreground">4.9 · 248 reviews</span>
@@ -124,10 +124,10 @@ function ProductPage() {
           <div className="flex items-baseline gap-3">
             <div className="font-display text-4xl">${productData.price.toFixed(2)}</div>
             <div className="text-muted-foreground line-through">${originalPrice.toFixed(2)}</div>
-            <span className="px-2 py-1 bg-sauce-green text-ink text-[10px] font-display tracking-[0.2em]">SAVE 25%</span>
+            <span className="px-2 py-1 bg-sauce-red text-bone text-[10px] font-display tracking-[0.2em]">SAVE 25%</span>
           </div>
 
-          <div className="flex items-center gap-2 text-xs font-display tracking-[0.2em] text-sauce-orange">
+          <div className="flex items-center gap-2 text-xs font-display tracking-[0.2em] text-sauce-red">
             <Flame className="h-4 w-4" /> 23 PEOPLE VIEWING NOW · 12 LEFT IN STOCK
           </div>
 
@@ -137,10 +137,9 @@ function ProductPage() {
             </div>
             <div className="flex gap-3">
               {[
-                { n: "Black", c: "#0a0a0a" },
-                { n: "Bone", c: "#f5f0e8" },
-                { n: "Red", c: "#dc2626" },
-                { n: "Olive", c: "#4d5a3e" },
+                { n: "Black", c: "#000000" },
+                { n: "White", c: "#ffffff" },
+                { n: "Red", c: "#d40000" },
               ].map(c => (
                 <button key={c.n} onClick={() => setColor(c.n)}
                   className={`h-10 w-10 rounded-full border-2 ${color === c.n ? "border-sauce-red ring-2 ring-sauce-red/30" : "border-border"}`}

@@ -25,10 +25,10 @@ export const Route = createFileRoute("/collections/$slug")({
 });
 
 const META: Record<string, { name: string; tag: string; hero: string; accent: string; copy: string }> = {
-  graduation: { name: "Graduation", tag: "Class of '26", hero: colGrad, accent: "var(--sauce-gold)", copy: "Capsule built for the moment. Walk the stage, own the after." },
-  foodie: { name: "Foodie", tag: "Hot Sauce Edition", hero: colFoodie, accent: "var(--sauce-orange)", copy: "For the ones who eat loud and dress louder. Late-night, neon-soaked, extra spicy." },
+  graduation: { name: "Graduation", tag: "Class of '26", hero: colGrad, accent: "var(--sauce-red)", copy: "Capsule built for the moment. Walk the stage, own the after." },
+  foodie: { name: "Foodie", tag: "Hot Sauce Edition", hero: colFoodie, accent: "var(--sauce-red)", copy: "For the ones who eat loud and dress louder. Late-night, neon-soaked, extra spicy." },
   worldcup: { name: "World Cup", tag: "Limited Capsule", hero: colWC, accent: "var(--sauce-red)", copy: "500 pieces per country. Once it's gone, it's gone. National pride, streetwear cut." },
-  streetwear: { name: "Streetwear", tag: "Daily Essentials", hero: colStreet, accent: "var(--sauce-green)", copy: "The everyday rotation. Heavyweight cotton, oversized cuts, built to outlast the trends." },
+  streetwear: { name: "Streetwear", tag: "Daily Essentials", hero: colStreet, accent: "var(--sauce-red)", copy: "The everyday rotation. Heavyweight cotton, oversized cuts, built to outlast the trends." },
 };
 
 const CATEGORIES = [
@@ -42,36 +42,36 @@ function cap(s: string) { return s ? s[0].toUpperCase() + s.slice(1) : ""; }
 
 const COLLECTION_PRODUCTS: Record<string, Array<{ name: string; price: number; img: string; slug: string; bg: string }>> = {
   graduation: [
-    { name: "CLASS OF '26 VARSITY JACKET", price: 185.00, img: productJacket, slug: "grad-varsity-26", bg: "bg-[#e8e4e1]" },
-    { name: "GOLD TASSLE HEAVYWEIGHT HOODIE", price: 95.00, img: productHoodie, slug: "gold-tassle-hoodie", bg: "bg-[#eadaaf]" },
-    { name: "ALUMNI PREMIUM TEE", price: 42.00, img: productTee, slug: "alumni-premium-tee", bg: "bg-[#f5f2eb]" },
-    { name: "COMMENCEMENT CORD SNAPBACK", price: 38.00, img: productCap, slug: "commencement-cap", bg: "bg-[#f0ece3]" },
-    { name: "GRADUATE EMBROIDERED CREWNECK", price: 80.00, img: productHoodie, slug: "grad-crewneck", bg: "bg-[#dce3ec]" },
-    { name: "SENIOR YEAR ESSENTIAL HOODIE", price: 89.00, img: productHoodie, slug: "senior-essential-hoodie", bg: "bg-[#e2e9e4]" },
+    { name: "CLASS OF '26 VARSITY JACKET", price: 185.00, img: productJacket, slug: "grad-varsity-26", bg: "bg-white" },
+    { name: "GOLD TASSLE HEAVYWEIGHT HOODIE", price: 95.00, img: productHoodie, slug: "gold-tassle-hoodie", bg: "bg-white" },
+    { name: "ALUMNI PREMIUM TEE", price: 42.00, img: productTee, slug: "alumni-premium-tee", bg: "bg-white" },
+    { name: "COMMENCEMENT CORD SNAPBACK", price: 38.00, img: productCap, slug: "commencement-cap", bg: "bg-white" },
+    { name: "GRADUATE EMBROIDERED CREWNECK", price: 80.00, img: productHoodie, slug: "grad-crewneck", bg: "bg-white" },
+    { name: "SENIOR YEAR ESSENTIAL HOODIE", price: 89.00, img: productHoodie, slug: "senior-essential-hoodie", bg: "bg-white" },
   ],
   foodie: [
-    { name: "HOT SAUCE VINTAGE TEE", price: 38.00, img: productTee, slug: "hot-sauce-tee", bg: "bg-[#eed9c4]" },
-    { name: "LATE-NIGHT NEON BISTRO HOODIE", price: 92.00, img: neonBistroHoodie, slug: "neon-bistro-hoodie", bg: "bg-[#f7f5f2]" },
-    { name: "STREET FOOD CULTURE TEE", price: 35.00, img: productTee, slug: "street-food-tee", bg: "bg-[#f0e3d5]" },
-    { name: "CHEF'S CAPSULE SNAPBACK", price: 32.00, img: productCap, slug: "chefs-snapback", bg: "bg-[#e6dfd5]" },
-    { name: "EXTRA SPICY ZIP-UP HOODIE", price: 98.00, img: productHoodie, slug: "extra-spicy-hoodie", bg: "bg-[#f5e3e1]" },
-    { name: "UMAMI FLAVORS SWEATSHIRT", price: 85.00, img: productHoodie, slug: "umami-sweatshirt", bg: "bg-[#dee2e6]" },
+    { name: "HOT SAUCE VINTAGE TEE", price: 38.00, img: productTee, slug: "hot-sauce-tee", bg: "bg-white" },
+    { name: "LATE-NIGHT NEON BISTRO HOODIE", price: 92.00, img: neonBistroHoodie, slug: "neon-bistro-hoodie", bg: "bg-white" },
+    { name: "STREET FOOD CULTURE TEE", price: 35.00, img: productTee, slug: "street-food-tee", bg: "bg-white" },
+    { name: "CHEF'S CAPSULE SNAPBACK", price: 32.00, img: productCap, slug: "chefs-snapback", bg: "bg-white" },
+    { name: "EXTRA SPICY ZIP-UP HOODIE", price: 98.00, img: productHoodie, slug: "extra-spicy-hoodie", bg: "bg-white" },
+    { name: "UMAMI FLAVORS SWEATSHIRT", price: 85.00, img: productHoodie, slug: "umami-sweatshirt", bg: "bg-white" },
   ],
   worldcup: [
-    { name: "STRIKER WORLD CUP JERSEY", price: 75.00, img: productTee, slug: "striker-wc-jersey", bg: "bg-[#e1ecf7]" },
-    { name: "PITCH-SIDE WINDBREAKER", price: 145.00, img: productJacket, slug: "pitch-windbreaker", bg: "bg-[#e1f0e7]" },
-    { name: "CHAMPIONS EDITION HOODIE", price: 95.00, img: productHoodie, slug: "champions-hoodie", bg: "bg-[#f7eed9]" },
-    { name: "NATIONAL GOLD 6-PANEL CAP", price: 35.00, img: productCap, slug: "national-gold-cap", bg: "bg-[#e2dfd9]" },
-    { name: "PITCH ACTIVE CREWNECK", price: 85.00, img: productHoodie, slug: "pitch-active-crew", bg: "bg-[#f0f3f6]" },
-    { name: "WORLD STADIUM HOODIE", price: 90.00, img: productHoodie, slug: "world-stadium-hoodie", bg: "bg-[#eed9c4]" },
+    { name: "STRIKER WORLD CUP JERSEY", price: 75.00, img: productTee, slug: "striker-wc-jersey", bg: "bg-white" },
+    { name: "PITCH-SIDE WINDBREAKER", price: 145.00, img: productJacket, slug: "pitch-windbreaker", bg: "bg-white" },
+    { name: "CHAMPIONS EDITION HOODIE", price: 95.00, img: productHoodie, slug: "champions-hoodie", bg: "bg-white" },
+    { name: "NATIONAL GOLD 6-PANEL CAP", price: 35.00, img: productCap, slug: "national-gold-cap", bg: "bg-white" },
+    { name: "PITCH ACTIVE CREWNECK", price: 85.00, img: productHoodie, slug: "pitch-active-crew", bg: "bg-white" },
+    { name: "WORLD STADIUM HOODIE", price: 90.00, img: productHoodie, slug: "world-stadium-hoodie", bg: "bg-white" },
   ],
   streetwear: [
-    { name: "DAILY HEAVYWEIGHT HOODIE", price: 89.00, img: productHoodie, slug: "daily-heavyweight-hoodie", bg: "bg-[#f4f4f4]" },
-    { name: "SAUCE DRIP PREMIUM TEE", price: 45.00, img: productTee, slug: "sauce-drip-tee", bg: "bg-[#d4b99f]" },
-    { name: "FLAME EMBROIDERED SNAPBACK", price: 35.00, img: productCap, slug: "flame-snapback", bg: "bg-[#111111]" },
-    { name: "VARSITY JACKET '26", price: 165.00, img: productJacket, slug: "varsity-jacket-26", bg: "bg-[#2b2b2b]" },
-    { name: "CITY OVERSIZED TEE", price: 50.00, img: productTee, slug: "city-tee", bg: "bg-[#e8e4e1]" },
-    { name: "BOMBER JACKET", price: 145.00, img: productJacket, slug: "bomber-jacket", bg: "bg-[#b14925]" },
+    { name: "DAILY HEAVYWEIGHT HOODIE", price: 89.00, img: productHoodie, slug: "daily-heavyweight-hoodie", bg: "bg-white" },
+    { name: "SAUCE DRIP PREMIUM TEE", price: 45.00, img: productTee, slug: "sauce-drip-tee", bg: "bg-white" },
+    { name: "FLAME EMBROIDERED SNAPBACK", price: 35.00, img: productCap, slug: "flame-snapback", bg: "bg-white" },
+    { name: "VARSITY JACKET '26", price: 165.00, img: productJacket, slug: "varsity-jacket-26", bg: "bg-white" },
+    { name: "CITY OVERSIZED TEE", price: 50.00, img: productTee, slug: "city-tee", bg: "bg-white" },
+    { name: "BOMBER JACKET", price: 145.00, img: productJacket, slug: "bomber-jacket", bg: "bg-white" },
   ]
 };
 
@@ -192,8 +192,8 @@ function CollectionPage() {
             <div className={`grid gap-x-6 gap-y-10 ${cols === 2 ? 'grid-cols-2' : cols === 3 ? 'grid-cols-2 md:grid-cols-3' : 'grid-cols-2 md:grid-cols-4'}`}>
               {products.map((p) => (
                 <div key={p.slug} className="group flex flex-col text-center">
-                  <Link to={"/products/$slug" as "/"} params={{ slug: p.slug } as never} className={`relative aspect-square md:aspect-[4/5] rounded-lg overflow-hidden mb-5 ${p.bg} flex items-center justify-center p-4`}>
-                    <img src={p.img} alt={p.name} loading="lazy" className="max-w-full max-h-full object-contain mix-blend-multiply group-hover:scale-105 transition-transform duration-500" />
+                  <Link to={"/products/$slug" as "/"} params={{ slug: p.slug } as never} className={`relative aspect-square md:aspect-[4/5] rounded-lg overflow-hidden mb-5 ${p.bg} border border-border/15 flex items-center justify-center p-4`}>
+                    <img src={p.img} alt={p.name} loading="lazy" className="max-w-full max-h-full object-contain group-hover:scale-105 transition-transform duration-500" />
                   </Link>
                   <Link to={"/products/$slug" as "/"} params={{ slug: p.slug } as never}>
                     <h3 className="font-medium text-sm md:text-base uppercase tracking-wide mb-1.5">{p.name}</h3>

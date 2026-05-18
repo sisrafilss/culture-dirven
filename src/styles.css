@@ -29,11 +29,6 @@
   --color-input: var(--input);
   --color-ring: var(--ring);
   --color-sauce-red: var(--sauce-red);
-  --color-sauce-orange: var(--sauce-orange);
-  --color-sauce-green: var(--sauce-green);
-  --color-sauce-gold: var(--sauce-gold);
-  --color-sauce-purple: var(--sauce-purple);
-  --color-sauce-blue: var(--sauce-blue);
   --color-ink: var(--ink);
   --color-bone: var(--bone);
   --font-display: var(--font-display);
@@ -42,36 +37,30 @@
 
 :root {
   --radius: 0.25rem;
-  /* Softer, warmer off-white/cream background â€” client said "not dark" */
-  --background: oklch(0.97 0.008 80);
-  --foreground: oklch(0.12 0.01 280);
-  --card: oklch(0.93 0.01 80);
-  --card-foreground: oklch(0.12 0.01 280);
-  --popover: oklch(0.95 0.008 80);
-  --popover-foreground: oklch(0.12 0.01 280);
-  --primary: oklch(0.12 0.01 280);
-  --primary-foreground: oklch(0.97 0.008 80);
-  --secondary: oklch(0.90 0.015 80);
-  --secondary-foreground: oklch(0.12 0.01 280);
-  --muted: oklch(0.88 0.012 80);
-  --muted-foreground: oklch(0.45 0.02 280);
-  --accent: oklch(0.62 0.245 27);
-  --accent-foreground: oklch(0.97 0.008 80);
-  --destructive: oklch(0.62 0.245 27);
-  --destructive-foreground: oklch(0.97 0.008 80);
-  --border: oklch(0.82 0.015 80);
-  --input: oklch(0.82 0.015 80);
-  --ring: oklch(0.62 0.245 27);
+  --background: #ffffff;
+  --foreground: #000000;
+  --card: #ffffff;
+  --card-foreground: #000000;
+  --popover: #ffffff;
+  --popover-foreground: #000000;
+  --primary: #000000;
+  --primary-foreground: #ffffff;
+  --secondary: #ffffff;
+  --secondary-foreground: #000000;
+  --muted: #ffffff;
+  --muted-foreground: #000000;
+  --accent: #d40000;
+  --accent-foreground: #ffffff;
+  --destructive: #d40000;
+  --destructive-foreground: #ffffff;
+  --border: #000000;
+  --input: #000000;
+  --ring: #d40000;
 
-  /* Vibrant multicolor brand palette */
-  --sauce-red: oklch(0.62 0.245 27);
-  --sauce-orange: oklch(0.72 0.19 50);
-  --sauce-green: oklch(0.60 0.20 145);
-  --sauce-gold: oklch(0.78 0.16 85);
-  --sauce-purple: oklch(0.55 0.22 295);
-  --sauce-blue: oklch(0.58 0.20 240);
-  --ink: oklch(0.10 0.01 280);
-  --bone: oklch(0.97 0.008 80);
+  /* Brand palette is intentionally limited to black, white, and red. */
+  --sauce-red: #d40000;
+  --ink: #000000;
+  --bone: #ffffff;
 
   --font-display: "Bebas Neue", "Anton", Impact, sans-serif;
   --font-sans: "Inter", system-ui, sans-serif;
@@ -79,10 +68,10 @@
 
 /* Dark section overrides for hero and special blocks */
 .section-dark {
-  --background: oklch(0.10 0.008 280);
-  --foreground: oklch(0.97 0.008 80);
-  background-color: oklch(0.10 0.008 280);
-  color: oklch(0.97 0.008 80);
+  --background: #000000;
+  --foreground: #ffffff;
+  background-color: #000000;
+  color: #ffffff;
 }
 
 @layer base {
@@ -175,21 +164,22 @@
     animation: slide-indicator 5s linear forwards;
   }
 
-  /* Gradient city color backgrounds */
-  .bg-city-gradient-red {
-    background: linear-gradient(135deg, oklch(0.95 0.04 27) 0%, oklch(0.92 0.02 50) 100%);
+  /* Premium black, white, and red section backgrounds */
+  .bg-premium-red-wash {
+    background: linear-gradient(135deg, #ffffff 0%, rgb(212 0 0 / 0.12) 100%);
   }
-  .bg-city-gradient-purple {
-    background: linear-gradient(135deg, oklch(0.94 0.04 295) 0%, oklch(0.92 0.02 240) 100%);
+  .bg-premium-contrast-wash {
+    background: linear-gradient(135deg, #ffffff 0%, rgb(0 0 0 / 0.08) 52%, rgb(212 0 0 / 0.14) 100%);
   }
-  .bg-city-gradient-gold {
-    background: linear-gradient(135deg, oklch(0.95 0.05 85) 0%, oklch(0.93 0.04 50) 100%);
+  .bg-premium-soft-red {
+    background: linear-gradient(135deg, #ffffff 0%, rgb(212 0 0 / 0.10) 100%);
   }
-  .bg-city-gradient-green {
-    background: linear-gradient(135deg, oklch(0.93 0.05 145) 0%, oklch(0.92 0.03 180) 100%);
+  .bg-premium-mono-wash {
+    background: linear-gradient(135deg, #ffffff 0%, rgb(0 0 0 / 0.08) 100%);
   }
-  .bg-city-gradient-blue {
-    background: linear-gradient(135deg, oklch(0.93 0.04 240) 0%, oklch(0.94 0.03 295) 100%);
+  .bg-premium-black-red {
+    background: linear-gradient(135deg, #000000 0%, #000000 60%, #d40000 100%);
+    color: #ffffff;
   }
 
   /* Button styles */
@@ -270,10 +260,5 @@
 
   /* Collection card accent colors */
   .col-card-red { border-top: 4px solid var(--sauce-red); }
-  .col-card-orange { border-top: 4px solid var(--sauce-orange); }
-  .col-card-green { border-top: 4px solid var(--sauce-green); }
-  .col-card-gold { border-top: 4px solid var(--sauce-gold); }
-  .col-card-purple { border-top: 4px solid var(--sauce-purple); }
-  .col-card-blue { border-top: 4px solid var(--sauce-blue); }
 }
 
