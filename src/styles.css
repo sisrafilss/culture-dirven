@@ -164,21 +164,23 @@
     animation: slide-indicator 5s linear forwards;
   }
 
-  /* Premium black, white, and red section backgrounds */
+  /* Premium section backgrounds: solid black or white only */
   .bg-premium-red-wash {
-    background: linear-gradient(135deg, #ffffff 0%, rgb(212 0 0 / 0.12) 100%);
+    background: #ffffff;
   }
   .bg-premium-contrast-wash {
-    background: linear-gradient(135deg, #ffffff 0%, rgb(0 0 0 / 0.08) 52%, rgb(212 0 0 / 0.14) 100%);
+    background: #ffffff;
   }
   .bg-premium-soft-red {
-    background: linear-gradient(135deg, #ffffff 0%, rgb(212 0 0 / 0.10) 100%);
+    background: #000000;
+    color: #ffffff;
   }
   .bg-premium-mono-wash {
-    background: linear-gradient(135deg, #ffffff 0%, rgb(0 0 0 / 0.08) 100%);
+    background: #000000;
+    color: #ffffff;
   }
   .bg-premium-black-red {
-    background: linear-gradient(135deg, #000000 0%, #000000 60%, #d40000 100%);
+    background: #000000;
     color: #ffffff;
   }
 

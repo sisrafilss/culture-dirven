@@ -174,9 +174,9 @@ function BenefitsRow() {
           { icon: ShieldCheck, text: "Ships from USA" },
           { icon: Headphones, text: "Support 24/7 Available" },
         ].map((b, i) => (
-          <div key={i} className="flex flex-col items-center gap-3 p-4 min-w-[200px] bg-white/50 rounded-md">
+          <div key={i} className="flex flex-col items-center gap-3 p-4 min-w-[200px] bg-background border border-foreground rounded-md">
             <b.icon className="h-8 w-8 text-sauce-red" />
-            <span className="font-display tracking-[0.1em] text-sm text-foreground/80">{b.text.toUpperCase()}</span>
+            <span className="font-display tracking-[0.1em] text-sm text-foreground">{b.text.toUpperCase()}</span>
           </div>
         ))}
       </div>
@@ -198,9 +198,8 @@ function ShopByCategory() {
           ].map((c, i) => (
             <Link key={i} to="/collections/streetwear" className="group relative aspect-square overflow-hidden bg-card hover-zoom rounded-md">
               <img src={c.img} alt={c.name} className="h-full w-full object-cover opacity-80 group-hover:opacity-100 transition-opacity" />
-              <div className="absolute inset-0 bg-black/20 group-hover:bg-transparent transition-colors" />
               <div className="absolute inset-0 flex items-center justify-center">
-                <span className="font-display text-2xl md:text-3xl text-bone tracking-widest drop-shadow-md bg-black/40 px-4 py-2 rounded">{c.name.toUpperCase()}</span>
+                <span className="font-display text-2xl md:text-3xl text-bone tracking-widest drop-shadow-md bg-black px-4 py-2 rounded">{c.name.toUpperCase()}</span>
               </div>
             </Link>
           ))}
@@ -221,7 +220,6 @@ function FoodieDripSection() {
             loading="lazy"
             className="aspect-[4/3] h-full w-full object-cover md:aspect-[16/10]"
           />
-          <div className="absolute inset-0 bg-gradient-to-tr from-black/20 via-transparent to-sauce-red/20" />
         </div>
         <div className="max-w-xl">
           <h2 className="font-display text-5xl leading-[0.95] text-foreground md:text-7xl">
@@ -229,7 +227,7 @@ function FoodieDripSection() {
             <br />
             <span className="text-sauce-red">Meets Flavor</span>
           </h2>
-          <p className="mt-6 max-w-md text-sm font-semibold leading-relaxed text-foreground/75 md:text-base">
+          <p className="mt-6 max-w-md text-sm font-semibold leading-relaxed text-foreground md:text-base">
             From Lemon Pepper Wings to Peach Cobbler vibes, our designs bring Atlanta’s foodie culture straight to your wardrobe. Rep your city in style!
           </p>
           <Link
@@ -257,19 +255,18 @@ function VideoPromoSection() {
           playsInline
           preload="metadata"
         />
-        <div className="absolute inset-0 bg-sauce-red/10 mix-blend-multiply" />
-        <div className="absolute inset-0 bg-gradient-to-r from-black/70 via-black/35 to-sauce-red/15" />
+        <div className="absolute inset-0 bg-gradient-to-r from-black/70 via-black/35 to-transparent" />
         <div className="absolute inset-0 bg-gradient-to-t from-black/45 via-transparent to-black/10" />
         <div className="absolute bottom-0 left-0 right-0 h-1 bg-sauce-red" />
         <div className="relative z-10 mx-auto flex min-h-[420px] max-w-[1500px] items-center px-5 py-14 sm:px-8 md:min-h-[560px] lg:px-10">
           <div className="max-w-xl text-bone">
-            <p className="font-display text-3xl leading-none tracking-[0.02em] text-bone/90 md:text-5xl">
+            <p className="font-display text-3xl leading-none tracking-[0.02em] text-bone md:text-5xl">
               STYLED FOR THE STREETS
             </p>
             <h2 className="mt-2 font-display text-5xl leading-[0.9] tracking-[0.02em] md:text-7xl lg:text-8xl">
               INSPIRED BY <span className="text-sauce-red">THE EATS</span>
             </h2>
-            <p className="mt-4 max-w-md text-base font-semibold text-bone/85 md:text-xl">
+            <p className="mt-4 max-w-md text-base font-semibold text-bone md:text-xl">
               Get the perfect blend of style and comfort today!
             </p>
             <Link
@@ -373,7 +370,7 @@ function Home() {
                 SAUCE CITY<br />
                 <span className="text-sauce-red">ATLANTA</span>.
               </h2>
-              <p className="mt-8 text-foreground/70 text-lg leading-relaxed max-w-lg">
+              <p className="mt-8 text-foreground text-lg leading-relaxed max-w-lg">
                 Built for the Foodie who knows the best spots, the creative who sets the tone, and everyone asking Who Got The Sauce.
               </p>
               <div className="grid grid-cols-3 gap-6 mt-10 max-w-md">
@@ -382,9 +379,9 @@ function Home() {
                   { n: "Foodie", l: "Energy" },
                   { n: "Sauce", l: "City" },
                 ].map((s) => (
-                  <div key={s.l} className="text-center p-4 bg-white/50 rounded">
+                  <div key={s.l} className="text-center p-4 bg-background border border-foreground rounded">
                     <div className="font-display text-4xl text-sauce-red">{s.n}</div>
-                    <div className="text-xs tracking-[0.2em] text-foreground/60 mt-1">{s.l.toUpperCase()}</div>
+                    <div className="text-xs tracking-[0.2em] text-foreground mt-1">{s.l.toUpperCase()}</div>
                   </div>
                 ))}
               </div>
@@ -392,7 +389,6 @@ function Home() {
             <div className="relative aspect-[4/5] overflow-hidden clip-tilt hover-zoom">
               <img src={storyBg} alt="Atlanta Sauce City culture" width={1080} height={1350} loading="lazy"
                 className="h-full w-full object-cover" />
-              <div className="absolute inset-0 bg-gradient-to-tr from-sauce-red/30 to-transparent" />
               <div className="absolute top-4 left-4 px-3 py-1 bg-sauce-red text-bone font-display tracking-[0.2em] text-xs">WHO GOT THE SAUCE</div>
             </div>
           </div>
@@ -444,13 +440,13 @@ function Home() {
           <div className="flex items-end justify-between mb-14">
             <div>
               <div className="text-xs font-display tracking-[0.3em] text-sauce-red mb-4">/ 03 "” WHO GOT THE SAUCE</div>
-              <h2 className="font-display text-6xl md:text-8xl">ATLANTA <span className="text-sauce-red">DROPS</span></h2>
+              <h2 className="font-display text-6xl md:text-8xl text-bone">ATLANTA <span className="text-sauce-red">DROPS</span></h2>
             </div>
             <div className="hidden md:flex gap-2 text-xs font-display tracking-[0.2em]">
-              <button className="px-4 py-2 bg-foreground text-background">ALL</button>
-              <button className="px-4 py-2 border border-foreground/30 hover:bg-foreground hover:text-background transition">HOODIES</button>
-              <button className="px-4 py-2 border border-foreground/30 hover:bg-foreground hover:text-background transition">TEES</button>
-              <button className="px-4 py-2 border border-foreground/30 hover:bg-foreground hover:text-background transition">ACCESSORIES</button>
+              <button className="px-4 py-2 bg-bone text-ink">ALL</button>
+              <button className="px-4 py-2 border border-bone text-bone hover:bg-bone hover:text-ink transition">HOODIES</button>
+              <button className="px-4 py-2 border border-bone text-bone hover:bg-bone hover:text-ink transition">TEES</button>
+              <button className="px-4 py-2 border border-bone text-bone hover:bg-bone hover:text-ink transition">ACCESSORIES</button>
             </div>
           </div>
 
@@ -474,11 +470,11 @@ function Home() {
                   <div>
                     <div className="flex items-center gap-1 text-sauce-red mb-1">
                       {[0,1,2,3,4].map(i => <Star key={i} className="h-3 w-3 fill-current" />)}
-                      <span className="text-[10px] text-muted-foreground ml-1">(248)</span>
+                      <span className="text-[10px] text-bone ml-1">(248)</span>
                     </div>
-                    <div className="font-display tracking-wide text-sm">{p.name.toUpperCase()}</div>
+                    <div className="font-display tracking-wide text-sm text-bone">{p.name.toUpperCase()}</div>
                   </div>
-                  <div className="font-display text-lg">${p.price}</div>
+                  <div className="font-display text-lg text-bone">${p.price}</div>
                 </div>
               </Link>
             ))}
@@ -536,7 +532,7 @@ function Home() {
               { name: "@tristan.k", role: "Foodie Creator", quote: "I wore it from brunch to the pop-up. Clean fit, Atlanta energy, real Foodie flavor.", img: colStreet },
               { name: "@sofi.r", role: "Watch Party Host", quote: "The capsule is pure Sauce City. It feels made for the crew that brings the flavor.", img: colFoodie },
             ].map((r) => (
-              <article key={r.name} className="bg-white/70 backdrop-blur overflow-hidden group">
+              <article key={r.name} className="bg-background border border-foreground overflow-hidden group">
                 <div className="aspect-[4/5] overflow-hidden">
                   <img src={r.img} alt={r.name} width={600} height={750} loading="lazy"
                     className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-105" />
@@ -545,11 +541,11 @@ function Home() {
                   <div className="flex items-center gap-1 text-sauce-red mb-3">
                     {[0,1,2,3,4].map(i => <Star key={i} className="h-3 w-3 fill-current" />)}
                   </div>
-                  <p className="text-foreground/90 text-base leading-relaxed">"{r.quote}"</p>
+                  <p className="text-foreground text-base leading-relaxed">"{r.quote}"</p>
                   <div className="mt-5 flex justify-between items-center pt-5 border-t border-border">
                     <div>
                       <div className="font-display tracking-wide">{r.name}</div>
-                      <div className="text-xs text-muted-foreground">{r.role}</div>
+                      <div className="text-xs text-foreground">{r.role}</div>
                     </div>
                     <span className="text-xs font-display tracking-[0.2em] text-sauce-red">VERIFIED</span>
                   </div>
@@ -589,7 +585,6 @@ function Home() {
           <div className="relative aspect-[4/5] overflow-hidden">
             <img src={colFoodie} alt="Foodie collection" width={1080} height={1350} loading="lazy"
               className="h-full w-full object-cover" />
-            <div className="absolute inset-0 bg-gradient-to-tr from-sauce-red/30 to-transparent mix-blend-multiply" />
             <div className="absolute top-4 left-4 px-3 py-1 bg-sauce-red text-bone font-display tracking-[0.2em] text-xs">EXTRA SPICY</div>
           </div>
           <div>
@@ -597,12 +592,12 @@ function Home() {
             <h2 className="font-display text-6xl md:text-8xl lg:text-9xl leading-[0.85]">
               FOODIE<br /><span className="text-sauce-red">SAUCE</span><br />CITY.
             </h2>
-            <p className="mt-8 text-foreground/70 text-lg max-w-md leading-relaxed">
+            <p className="mt-8 text-bone text-lg max-w-md leading-relaxed">
               From Atlanta late-night plates to weekend pop-ups, this is for the Foodie crowd that eats loud and dresses louder.
             </p>
             <div className="flex flex-wrap gap-3 mt-8">
               {["HOT", "SPICY", "SAUCY", "DRIPPING", "EXTRA"].map(t => (
-                <span key={t} className="px-3 py-1.5 border border-foreground/20 font-display tracking-[0.2em] text-xs">{t}</span>
+                <span key={t} className="px-3 py-1.5 border border-bone text-bone font-display tracking-[0.2em] text-xs">{t}</span>
               ))}
             </div>
             <Link to="/collections/foodie" className="mt-10 btn-sauce inline-flex"><span>Shop The Drop</span><ArrowRight className="h-4 w-4" /></Link>
@@ -611,25 +606,25 @@ function Home() {
       </section>
 
       {/* EMAIL CAPTURE */}
-      <section className="py-24 bg-premium-black-red border-t border-border">
+      <section className="py-24 bg-bone text-ink border-t border-border">
         <div className="mx-auto max-w-[1500px] px-5 lg:px-10">
           <div className="grid lg:grid-cols-12 gap-10 items-center">
             <div className="lg:col-span-6">
               <div className="text-xs font-display tracking-[0.3em] text-sauce-red mb-4">/ 08 "” JOIN SAUCE CITY</div>
               <h2 className="font-display text-5xl md:text-7xl lg:text-8xl leading-[0.9]">
                 ATLANTA ACCESS.<br />
-                <span className="text-stroke-bone">FOODIE</span> DROPS.<br />
+                <span className="text-stroke">FOODIE</span> DROPS.<br />
                 <span className="text-sauce-red">WHO GOT THE SAUCE.</span>
               </h2>
             </div>
             <div className="lg:col-span-6">
               <form className="flex flex-col sm:flex-row gap-3" onSubmit={(e) => e.preventDefault()}>
                 <input type="email" required placeholder="your@email.com"
-                  className="flex-1 bg-white/70 border border-border px-5 py-5 text-foreground placeholder:text-muted-foreground focus:outline-none focus:border-sauce-red font-display tracking-widest" />
+                  className="flex-1 bg-bone border border-border px-5 py-5 text-foreground placeholder:text-muted-foreground focus:outline-none focus:border-sauce-red font-display tracking-widest" />
                 <button className="btn-sauce justify-center"><span>Join</span><ArrowRight className="h-4 w-4" /></button>
               </form>
-              <p className="mt-4 text-xs text-bone/70 tracking-wider">By signing up you agree to our Privacy Policy. Unsubscribe anytime.</p>
-              <div className="mt-8 flex items-center gap-6 text-xs font-display tracking-[0.2em] text-bone/70">
+              <p className="mt-4 text-xs text-ink/70 tracking-wider">By signing up you agree to our Privacy Policy. Unsubscribe anytime.</p>
+              <div className="mt-8 flex items-center gap-6 text-xs font-display tracking-[0.2em] text-ink/70">
                 <span className="flex items-center"><Check className="h-4 w-4 mr-1 text-sauce-red"/> EARLY ACCESS</span>
                 <span className="flex items-center"><Check className="h-4 w-4 mr-1 text-sauce-red"/> 15% OFF FIRST DROP</span>
                 <span className="flex items-center"><Check className="h-4 w-4 mr-1 text-sauce-red"/> BEHIND THE SCENES</span>

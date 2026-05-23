@@ -2,7 +2,7 @@ import { Instagram, Youtube, Twitter } from "lucide-react";
 
 export function Footer() {
   return (
-    <footer className="bg-foreground text-background mt-32">
+    <footer className="bg-foreground text-background">
       <div className="mx-auto max-w-[1500px] px-5 lg:px-10 py-20">
         <div className="grid gap-12 md:grid-cols-2 lg:grid-cols-4">
           <div>
